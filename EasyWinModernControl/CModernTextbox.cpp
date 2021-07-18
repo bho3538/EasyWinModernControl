@@ -3,7 +3,7 @@
 
 using namespace EasyWinModernControl;
 
-CModernTextbox::CModernTextbox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder, BOOL enableMultiLine, BOOL enableUserChangeLine) {
+CModernTextbox::CModernTextbox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder, BOOL enableMultiLine, BOOL enableUserChangeLine, DWORD maxTextLength) {
 
 	this->_textbox.Name(controlName);
 	this->_textbox.Header(winrt::box_value(headerTitle));
@@ -13,6 +13,10 @@ CModernTextbox::CModernTextbox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR
 		this->_textbox.AcceptsReturn(enableUserChangeLine);
 
 		Windows::UI::Xaml::Controls::ScrollViewer::SetVerticalScrollBarVisibility(this->_textbox, winrt::Windows::UI::Xaml::Controls::ScrollBarVisibility::Auto);
+	}
+
+	if (maxTextLength > 0) {
+		this->_textbox.MaxLength(maxTextLength);
 	}
 }
 
@@ -27,7 +31,7 @@ LPCWSTR CModernTextbox::GetText() {
 	}
 
 	hstring str = this->_textbox.Text();
-
+	
 	return str.c_str();
 }
 
@@ -48,6 +52,14 @@ void CModernTextbox::SetReadonlyMode(BOOL enable) {
 	this->_textbox.IsReadOnly(enable);
 }
 
+void CModernTextbox::SetEnableControl(BOOL enable) {
+	if (!this->ins) {
+		return;
+	}
+
+	this->_textbox.IsEnabled(enable);
+}
+
 void CModernTextbox::SetTemplate() {
 	hstring str(xml);
 	this->ins = XamlReader::Load(str);
@@ -58,8 +70,6 @@ void CModernTextbox::SetTemplate() {
 	Windows::UI::Xaml::Controls::StackPanel panel = this->ins.as<Windows::UI::Xaml::Controls::StackPanel>();
 
 	panel.Children().InsertAt(0, this->_textbox);
-
-	
 
 	return;
 }

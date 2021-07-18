@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="헤더 파일\interface">
+      <UniqueIdentifier>{0a4477c1-733a-4108-9833-df2fe4442594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\extern">
+      <UniqueIdentifier>{bc2d62e6-bad5-4bf4-8c38-ff3293fb0e5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\extern">
+      <UniqueIdentifier>{e7b69a06-7709-44b2-8d87-ab9af7b8bce7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="testmain.cpp">
@@ -25,6 +34,24 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="CModernControl.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CModernPasswordbox.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CModernButton.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EasyWinMdrnCtrlWrapper.cpp">
+      <Filter>소스 파일\extern</Filter>
+    </ClCompile>
+    <ClCompile Include="CModernSlidebar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CModernProgressring.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CModernTimePicker.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,6 +71,27 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="CModernControl.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CModernPasswordbox.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CModernButton.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="IModernControl.h">
+      <Filter>헤더 파일\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="EasyWinMdrnCtrlWrapper.h">
+      <Filter>헤더 파일\extern</Filter>
+    </ClInclude>
+    <ClInclude Include="CModernSlidebar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CModernProgressring.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CModernTimePicker.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

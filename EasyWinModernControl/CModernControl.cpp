@@ -3,10 +3,34 @@
 
 using namespace EasyWinModernControl;
 
+typedef NTSTATUS(__stdcall* TRtlGetVersion)(OSVERSIONINFOEXW* ovf);
+TRtlGetVersion _RtlGetVersion = NULL;
+
 HRESULT CModernControl::Initialize() {
 	winrt::init_apartment(apartment_type::single_threaded);
 
 	return 0;
+}
+
+BOOL CModernControl::IsSupportSystem() {
+	OSVERSIONINFOEXW verInfo = { 0, };
+	NTSTATUS status = 0;
+
+	if (!_RtlGetVersion) {
+		_RtlGetVersion = (TRtlGetVersion)GetProcAddress(LoadLibraryW(L"ntdll.dll"), "RtlGetVersion");
+		if (!_RtlGetVersion) {
+			return FALSE;
+		}
+	}
+
+	_RtlGetVersion(&verInfo);
+
+	//Windows 10 RS5
+	if (verInfo.dwBuildNumber >= 17763) {
+		return TRUE;
+	}
+
+	return FALSE;
 }
 
 CModernControl::CModernControl() {
@@ -54,6 +78,8 @@ HRESULT CModernControl::Show(HWND parentHwnd) {
 
 	xs.Content(ins.as<UIElement>());
 
+	ins.as< Windows::UI::Xaml::Controls::StackPanel>().RequestedTheme(this->_theme);
+
 	//show uwp window at win32 window.
 	GetWindowRect(parentHwnd, &rect);
 	SetWindowPos(_uwpHwnd, 0, 0, 0, rect.right - rect.left, rect.bottom - rect.top, SWP_SHOWWINDOW);
@@ -62,6 +88,25 @@ HRESULT CModernControl::Show(HWND parentHwnd) {
 escapeArea:
 
 	return hr;
+}
+
+void CModernControl::Close() {
+	CloseWindow(this->_uwpHwnd);
+	DestroyWindow(this->_uwpHwnd);
+
+	this->_uwpHwnd = NULL;
+}
+
+void CModernControl::Hide(BOOL reShow) {
+	if (reShow) {
+		ShowWindow(this->_uwpHwnd, SW_SHOW);
+	}
+	else {
+		ShowWindow(this->_uwpHwnd, SW_HIDE);
+	}
+}
+HWND CModernControl::GetRawControlHwnd() {
+	return this->_uwpHwnd;
 }
 
 void CModernControl::AdjustLayout() {
@@ -82,4 +127,16 @@ void CModernControl::SetTemplate() {
 
 void CModernControl::OnAdjustLayout() {
 	return;
+}
+
+void CModernControl::SetTheme(DWORD dwFlags) {
+	if (dwFlags == 1) {
+		this->_theme = winrt::Windows::UI::Xaml::ElementTheme::Light;
+	}
+	else if (dwFlags == 2) {
+		this->_theme = winrt::Windows::UI::Xaml::ElementTheme::Dark;
+	}
+	else {
+		this->_theme = winrt::Windows::UI::Xaml::ElementTheme::Default;
+	}
 }
