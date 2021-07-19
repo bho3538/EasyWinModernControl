@@ -5,7 +5,7 @@ extern "C" {
 #endif
 	typedef BOOL(__stdcall* TEasyWinModernCtrl_BtnCallback)(DWORD id, PVOID userData);
 	typedef BOOL(__stdcall* TEasyWinModernCtrl_SlidebarCallback)(DWORD id, DOUBLE currentValue, PVOID userData);
-
+	typedef BOOL(__stdcall* TEasyWinModernCtrl_TimePickerCallback)(INT64 seconds, PVOID userData);
 
 	typedef struct _EasyModernBtn {
 		int unused;
@@ -23,6 +23,14 @@ extern "C" {
 		int unused;
 	} EASYMODERNSLIDEBAR, * PEASYMODERNSLIDEBAR;
 
+	typedef struct _EasyModernProgressring {
+		int unused;
+	} EASYMODERNPROGRESSRING, * PEASYMODERNPROGRESSRING;
+
+	typedef struct _EasyModernTimePicker {
+		int unused;
+	} EASYMODERNTIMEPICKER,*PEASYMODERNTIMEPICKER;
+
 	__declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_IsSystemSupport();
 
 	//Textbox
@@ -34,7 +42,7 @@ extern "C" {
 
 	
 	//Passwordbox
-	__declspec(dllexport) PEASYMODERNTEXTBOX __cdecl EasyWinModernCtrl_CreatePasswordBox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder, DWORD maxLength);
+	__declspec(dllexport) PEASYMODERNPWDBOX __cdecl EasyWinModernCtrl_CreatePasswordBox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder, DWORD maxLength);
 	__declspec(dllexport) LPCWSTR __cdecl EasyWinModernCtrl_PasswordboxGetPassword(PEASYMODERNPWDBOX pPwdboxInfo);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_PasswordboxSetEnableControl(PEASYMODERNPWDBOX pPwdboxInfo, BOOL enable);
 
@@ -45,7 +53,17 @@ extern "C" {
 
 	//Slidebar
 	__declspec(dllexport) PEASYMODERNSLIDEBAR __cdecl EasyWinModernCtrl_CreateSlidebar(LPCWSTR controlName, DWORD id, DOUBLE minVal, DOUBLE maxVal, DOUBLE step, DOUBLE defaultValue);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_SlidebarSetValueChangedCallback(PEASYMODERNSLIDEBAR pSlidebarInfo, TEasyWinModernCtrl_SlidebarCallback cb, PVOID userData);
+	__declspec(dllexport) DOUBLE __cdecl EasyWinModernCtrl_SlidebarGetValue(PEASYMODERNSLIDEBAR pSlidebarInfo);
 
+	//Progressring
+	__declspec(dllexport) PEASYMODERNPROGRESSRING __cdecl EasyWinModernCtrl_CreateProgressring(LPCWSTR controlName);
+
+	//TimePicker
+	__declspec(dllexport) PEASYMODERNTIMEPICKER __cdecl EasyWinModernCtrl_CreateTimePicker(LPCWSTR controlName,LPCWSTR headerText,BOOL use24hours);
+	__declspec(dllexport) INT64 __cdecl EasyWinModernCtrl_TimePickerGetSelectedTimeAsSeconds(PEASYMODERNTIMEPICKER pTimePickerInfo);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_TimePickerSetTimeUsingSeconds(PEASYMODERNTIMEPICKER pTimePickerInfo, INT64 seconds);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_TimePickerSetValueChangedCallback(PEASYMODERNTIMEPICKER pTimePickerInfo, TEasyWinModernCtrl_TimePickerCallback cb, PVOID userData);
 
 	//Common
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_ShowControl(PVOID pControl, HWND parentHwnd);

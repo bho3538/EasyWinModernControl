@@ -12,6 +12,7 @@ namespace EasyWinModernControl {
 		CModernSlidebar(LPCWSTR controlName, DWORD id, DOUBLE minVal, DOUBLE maxVal, DOUBLE step, DOUBLE defaultValue);
 		~CModernSlidebar();
 
+		DOUBLE GetValue();
 		void SetValueChangedCallback(_TEasyWinModernCtrl_SlidebarCallback callbackFunc, PVOID userData);
 		//internal use
 		void CallCB();

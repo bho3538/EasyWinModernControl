@@ -9,7 +9,7 @@ namespace EasyWinModernControl {
 	class CModernTimePicker : public CModernControl
 	{
 	public:
-		CModernTimePicker(LPCWSTR headerText, BOOL use24Hours);
+		CModernTimePicker(LPCWSTR controlName,LPCWSTR headerText, BOOL use24Hours);
 		~CModernTimePicker();
 
 		INT64 GetSelectedTimeAsSeconds();

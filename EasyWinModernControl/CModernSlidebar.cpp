@@ -50,3 +50,7 @@ void CModernSlidebar::CallCB() {
 		this->_callbackFunc(this->_id, currentVal, this->_userData);
 	}
 }
+
+DOUBLE CModernSlidebar::GetValue() {
+	return this->_slider.Value();
+}

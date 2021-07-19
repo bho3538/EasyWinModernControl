@@ -3,7 +3,7 @@
 
 using namespace EasyWinModernControl;
 
-CModernTimePicker::CModernTimePicker(LPCWSTR headerText, BOOL use24Hours) {
+CModernTimePicker::CModernTimePicker(LPCWSTR controlName, LPCWSTR headerText, BOOL use24Hours) {
 	this->_picker.Header(winrt::box_value(headerText));
 	this->_use24Hours = use24Hours;
 }

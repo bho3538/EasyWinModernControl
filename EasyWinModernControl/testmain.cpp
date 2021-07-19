@@ -17,11 +17,9 @@ HWND g_TimeLabel = NULL;
 
 PEASYMODERNTEXTBOX g_TextboxInfo = NULL;
 PEASYMODERNBTN g_ButtonInfo = NULL;
-
-
-EasyWinModernControl::CModernSlidebar* g_SlidebarInfo = NULL;
-EasyWinModernControl::CModernProgressring* g_Progressring = NULL;
-EasyWinModernControl::CModernTimePicker* g_TimePicker = NULL;
+PEASYMODERNSLIDEBAR g_SlidebarInfo = NULL;
+PEASYMODERNPROGRESSRING g_ProgressringInfo = NULL;
+PEASYMODERNTIMEPICKER g_TimePickerInfo = NULL;
 
 BOOL __stdcall _SlidebarChanged(DWORD id, DOUBLE currentValue, PVOID userData) {
 	CHAR str[10];
@@ -35,7 +33,7 @@ BOOL __stdcall _SlidebarChanged(DWORD id, DOUBLE currentValue, PVOID userData) {
 
 BOOL __stdcall _ButtonClicked(DWORD id, PVOID userData) {
 
-	MessageBoxW(0, L"Button Clicked", L"", 0);
+	MessageBoxW((HWND)userData, L"Button Clicked", L"", 0);
 
 	return TRUE;
 }
@@ -56,10 +54,10 @@ BOOL __stdcall _TimeSelected(INT64 seconds, PVOID userData) {
 LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 int main()
 {
-	//if (!CModernControl::IsSupportSystem()) {
-	//	MessageBoxW(0, L"Not Supported", L"", 0);
-	//	return -1;
-	//}
+	if (!EasyWinModernCtrl_IsSystemSupport()) {
+		MessageBoxW(0, L"Not Supported", L"", 0);
+		return -1;
+	}
 
 
 	WNDCLASSEX wClass = { 0 };
@@ -96,13 +94,13 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 
 	switch (uMsg) {
 		case WM_CREATE: {
-			g_LabelHwnd = CreateWindowW(L"Button", L"Win32 Control", WS_CHILD, 5, 5, 140, 100, hwnd, NULL, NULL, NULL);
+			g_LabelHwnd = CreateWindowW(L"Button", L"Get Textbox Text", WS_CHILD, 5, 5, 140, 100, hwnd, NULL, NULL, NULL);
 			ShowWindow(g_LabelHwnd, SW_SHOW);
 
 			g_TextboxPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 150, 5, 200, 100, hwnd, NULL, NULL, NULL);
 			ShowWindow(g_TextboxPlaceHwnd, SW_SHOW);
 
-			g_TextboxInfo = EasyWinModernCtrl_CreateTextbox(L"password", L"awef", L"placeholder text", TRUE, TRUE, 10);
+			g_TextboxInfo = EasyWinModernCtrl_CreateTextbox(L"password", L"Enter Text", L"placeholder text", TRUE, TRUE, 0);
 
 			EasyWinModernCtrl_ShowControl(g_TextboxInfo, g_TextboxPlaceHwnd);
 
@@ -121,15 +119,15 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 			g_SlidebarValueLabel = CreateWindowW(L"static", L"ff", WS_CHILD, 210, 150, 30, 30, hwnd, NULL, NULL, NULL);
 			ShowWindow(g_SlidebarValueLabel, SW_SHOW);
 			
-			g_SlidebarInfo = new EasyWinModernControl::CModernSlidebar(L"awef",1, 0, 100, 10, 0);
-			g_SlidebarInfo->SetValueChangedCallback(&_SlidebarChanged, NULL);
-			g_SlidebarInfo->Show(g_SlidebarPlaceHwnd);
+			g_SlidebarInfo = EasyWinModernCtrl_CreateSlidebar(L"awef", 1, 0, 100, 10, 0);
+			EasyWinModernCtrl_SlidebarSetValueChangedCallback(g_SlidebarInfo, &_SlidebarChanged, NULL);
+			EasyWinModernCtrl_ShowControl(g_SlidebarInfo,g_SlidebarPlaceHwnd);
 
 			g_ProgressRingPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 310, 150, 30, 30, hwnd, NULL, NULL, NULL);
 			ShowWindow(g_ProgressRingPlaceHwnd, SW_SHOW);
 
-			g_Progressring = new EasyWinModernControl::CModernProgressring();
-			g_Progressring->Show(g_ProgressRingPlaceHwnd);
+			g_ProgressringInfo = EasyWinModernCtrl_CreateProgressring(L"loadingRing");
+			EasyWinModernCtrl_ShowControl(g_ProgressringInfo, g_ProgressRingPlaceHwnd);
 
 			g_TimePickerPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 350, 150, 250, 60, hwnd, NULL, NULL, NULL);
 			ShowWindow(g_TimePickerPlaceHwnd, SW_SHOW);
@@ -137,10 +135,10 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 			g_TimeLabel = CreateWindowW(L"static", L"", WS_CHILD, 600, 150, 250, 30, hwnd, NULL, NULL, NULL);
 			ShowWindow(g_TimeLabel, SW_SHOW);
 
-			g_TimePicker = new EasyWinModernControl::CModernTimePicker(L"Select Time", 0);
-			g_TimePicker->SetTimeUsingSeconds(56100);
-			g_TimePicker->SetTimeCallback(&_TimeSelected, hwnd);
-			g_TimePicker->Show(g_TimePickerPlaceHwnd);
+			g_TimePickerInfo = EasyWinModernCtrl_CreateTimePicker(L"SelTime", L"Select Time", FALSE);
+			EasyWinModernCtrl_TimePickerSetTimeUsingSeconds(g_TimePickerInfo,56100);
+			EasyWinModernCtrl_TimePickerSetValueChangedCallback(g_TimePickerInfo, &_TimeSelected, hwnd);
+			EasyWinModernCtrl_ShowControl(g_TimePickerInfo, g_TimePickerPlaceHwnd);
 
 		}; break;
 		case WM_SIZE: {
@@ -152,7 +150,6 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 			if (g_TextboxInfo) {
 				MessageBox(hwnd, EasyWinModernCtrl_TextboxGetText(g_TextboxInfo), L"EasyWinModernControl", 0);
 			}
-			g_TimePicker->GetSelectedTimeAsSeconds();
 		}; break;
 		case WM_DESTROY: {
 

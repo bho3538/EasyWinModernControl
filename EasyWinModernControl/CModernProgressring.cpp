@@ -3,7 +3,7 @@
 
 using namespace EasyWinModernControl;
 
-CModernProgressring::CModernProgressring() {
+CModernProgressring::CModernProgressring(LPCWSTR controlName) {
 
 }
 CModernProgressring::~CModernProgressring() {

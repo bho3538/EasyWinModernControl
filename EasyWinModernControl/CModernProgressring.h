@@ -6,7 +6,7 @@ namespace EasyWinModernControl {
 	class CModernProgressring : public CModernControl
 	{
 	public:
-		CModernProgressring();
+		CModernProgressring(LPCWSTR controlName);
 		~CModernProgressring();
 
 	protected:
