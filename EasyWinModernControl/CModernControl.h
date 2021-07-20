@@ -41,5 +41,6 @@ namespace EasyWinModernControl {
 		HWND _parentHwnd = NULL;
 		HWND _uwpHwnd = NULL;
 		DOUBLE _height = 0;
+		DOUBLE _width = 0;
 	};
 }

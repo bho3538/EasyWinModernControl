@@ -19,6 +19,7 @@ namespace EasyWinModernControl {
 
 	protected:
 		void SetTemplate();
+		void OnAdjustLayout();
 
 	private:
 		Windows::UI::Xaml::Controls::Slider _slider;

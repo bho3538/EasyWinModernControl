@@ -25,3 +25,8 @@ void CModernProgressring::SetTemplate() {
 
 	return;
 }
+
+void CModernProgressring::OnAdjustLayout() {
+	this->_ring.Height(this->_height);
+	this->_ring.Width(this->_width);
+}

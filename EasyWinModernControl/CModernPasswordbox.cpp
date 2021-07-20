@@ -53,5 +53,7 @@ void CModernPasswordbox::SetTemplate() {
 }
 
 void CModernPasswordbox::OnAdjustLayout() {
-	this->_pwdbox.MaxHeight(_height);
+	//this->_pwdbox.MaxHeight(_height);
+	this->_pwdbox.Height(_height);
+	this->_pwdbox.Width(_width);
 }

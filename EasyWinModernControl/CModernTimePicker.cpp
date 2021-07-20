@@ -79,3 +79,8 @@ void CModernTimePicker::SetTimeCallback(_TEasyWinModernCtrl_TimePickerCallback c
 	this->_callbackFunc = callbackFunc;
 	this->_userData = userData;
 }
+
+void CModernTimePicker::OnAdjustLayout() {
+	this->_picker.Height(_height);
+	this->_picker.Width(_width);
+}

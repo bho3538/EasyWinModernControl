@@ -33,8 +33,6 @@ void CModernButton::SetTemplate() {
 			this->_btn.Style(resources.as< winrt::Windows::UI::Xaml::Style>());
 		}
 	}
-
-
 	panel.Children().InsertAt(0, this->_btn);
 
 	return;
@@ -53,4 +51,9 @@ void CModernButton::CallCB() {
 
 void CModernButton::SetUseAccentColor(BOOL enable) {
 	this->_useAccentColor = enable;
+}
+
+void CModernButton::OnAdjustLayout() {
+	this->_btn.Height(this->_height);
+	this->_btn.Width(this->_width);
 }

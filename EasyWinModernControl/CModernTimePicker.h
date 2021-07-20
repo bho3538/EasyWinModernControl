@@ -22,6 +22,7 @@ namespace EasyWinModernControl {
 		
 	protected:
 		void SetTemplate();
+		void OnAdjustLayout();
 
 	private:
 		Windows::UI::Xaml::Controls::TimePicker _picker;

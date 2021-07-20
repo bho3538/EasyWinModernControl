@@ -11,6 +11,7 @@ namespace EasyWinModernControl {
 
 	protected:
 		void SetTemplate();
+		void OnAdjustLayout();
 
 	private:
 		Windows::UI::Xaml::Controls::ProgressRing _ring;

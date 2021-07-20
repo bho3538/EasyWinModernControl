@@ -75,5 +75,6 @@ void CModernTextbox::SetTemplate() {
 }
 
 void CModernTextbox::OnAdjustLayout() {
-	this->_textbox.MaxHeight(_height);
+	this->_textbox.Height(_height);
+	this->_textbox.Width(_width);
 }

@@ -54,3 +54,8 @@ void CModernSlidebar::CallCB() {
 DOUBLE CModernSlidebar::GetValue() {
 	return this->_slider.Value();
 }
+
+void CModernSlidebar::OnAdjustLayout() {
+	this->_slider.Height(this->_height);
+	this->_slider.Width(this->_width);
+}

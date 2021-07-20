@@ -116,6 +116,7 @@ void CModernControl::AdjustLayout() {
 		SetWindowPos(this->_uwpHwnd, NULL, 0, 0, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, SWP_SHOWWINDOW);
 	
 		this->_height = windowRect.bottom - windowRect.top;
+		this->_width = windowRect.right - windowRect.left;
 	}
 
 	OnAdjustLayout();
