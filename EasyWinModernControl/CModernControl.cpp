@@ -6,8 +6,13 @@ using namespace EasyWinModernControl;
 typedef NTSTATUS(__stdcall* TRtlGetVersion)(OSVERSIONINFOEXW* ovf);
 TRtlGetVersion _RtlGetVersion = NULL;
 
-HRESULT CModernControl::Initialize() {
-	winrt::init_apartment(apartment_type::single_threaded);
+HRESULT CModernControl::Initialize(BOOL useMTA) {
+	if (useMTA) {
+		winrt::init_apartment(apartment_type::multi_threaded);
+	}
+	else {
+		winrt::init_apartment(apartment_type::single_threaded);
+	}
 
 	return 0;
 }

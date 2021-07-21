@@ -55,6 +55,10 @@ __declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_IsSystemSupport() {
 	return CModernControl::IsSupportSystem();
 }
 
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_InitializeApartment(BOOL useMTA) {
+	CModernControl::Initialize(useMTA);
+}
+
 __declspec(dllexport)  PEASYMODERNPWDBOX __cdecl EasyWinModernCtrl_CreatePasswordBox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder, DWORD maxLength) {
 	PEASYMODERNPWDBOXINT pwdbox = (PEASYMODERNPWDBOXINT)malloc(sizeof(EASYMODERNPWDBOXINT));
 	if (pwdbox) {
@@ -223,6 +227,14 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_AdjustLayout(PVOID pControl
 	if (pControlInfo) {
 		((CModernControl*)(pControlInfo->pBtn))->AdjustLayout();
 	}
+}
+
+__declspec(dllexport) HWND __cdecl EasyWinModernCtrl_GetRawControlHwnd(PVOID pControl) {
+	PEASYMODERNBTNINT pControlInfo = (PEASYMODERNBTNINT)pControl;
+	if (pControlInfo) {
+		return ((CModernControl*)(pControlInfo->pBtn))->GetRawControlHwnd();
+	}
+	return 0;
 }
 
 __declspec(dllexport) void __cdecl EasyWinModernCtrl_SetTheme(PVOID pControl, DWORD dwFlags) {

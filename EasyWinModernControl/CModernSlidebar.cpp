@@ -3,12 +3,20 @@
 
 using namespace EasyWinModernControl;
 
+LPCWSTR CModernSlidebar::xml = LR"(
+<StackPanel xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+</StackPanel>)";
+
 CModernSlidebar::CModernSlidebar(LPCWSTR controlName, DWORD id, DOUBLE minVal, DOUBLE maxVal, DOUBLE step, DOUBLE defaultValue) {
+	if (controlName) {
+		this->_slider.Name(controlName);
+	}
+	
 	this->_slider.Minimum(minVal);
 	this->_slider.Maximum(maxVal);
 	this->_slider.Value(defaultValue);
 	this->_slider.StepFrequency(step);
-
 	//if (useVerticalMode) {
 	//	this->_slider.Orientation(winrt::Windows::UI::Xaml::Controls::Orientation::Vertical);
 	//}

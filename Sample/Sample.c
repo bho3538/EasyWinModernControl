@@ -3,7 +3,7 @@
 #include "../EasyWinModernControl/EasyWinMdrnCtrlWrapper.h"
 
 #if _WIN64
-#pragma comment(lib,"..\\Release\\EasyWinModernControl.lib")
+#pragma comment(lib,"..\\x64\\Release\\EasyWinModernControl.lib")
 #else
 #pragma comment(lib,"..\\Release\\EasyWinModernControl.lib")
 #endif

@@ -173,7 +173,6 @@
     <ClInclude Include="CModernSlidebar.h" />
     <ClInclude Include="CModernTextbox.h" />
     <ClInclude Include="CModernTimePicker.h" />
-    <ClInclude Include="IModernControl.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="EasyWinMdrnCtrlWrapper.h" />
   </ItemGroup>

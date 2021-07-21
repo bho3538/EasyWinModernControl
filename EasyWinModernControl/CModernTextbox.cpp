@@ -3,11 +3,24 @@
 
 using namespace EasyWinModernControl;
 
-CModernTextbox::CModernTextbox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder, BOOL enableMultiLine, BOOL enableUserChangeLine, DWORD maxTextLength) {
+LPCWSTR CModernTextbox::xml = LR"(
+<StackPanel xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+</StackPanel>)";
 
-	this->_textbox.Name(controlName);
-	this->_textbox.Header(winrt::box_value(headerTitle));
-	this->_textbox.PlaceholderText(textPlaceholder);
+CModernTextbox::CModernTextbox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder, BOOL enableMultiLine, BOOL enableUserChangeLine, DWORD maxTextLength) {
+	if (controlName) {
+		this->_textbox.Name(controlName);
+	}
+
+	if (headerTitle) {
+		this->_textbox.Header(winrt::box_value(headerTitle));
+	}
+
+	if (textPlaceholder) {
+		this->_textbox.PlaceholderText(textPlaceholder);
+	}
+
 	if (enableMultiLine) {
 		this->_textbox.TextWrapping(winrt::Windows::UI::Xaml::TextWrapping::Wrap);
 		this->_textbox.AcceptsReturn(enableUserChangeLine);

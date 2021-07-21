@@ -20,10 +20,6 @@ namespace EasyWinModernControl {
 		private:
 			Windows::UI::Xaml::Controls::TextBox _textbox;
 
-			LPCWSTR xml = LR"(
-<StackPanel xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-</StackPanel>
-)";
+			static LPCWSTR xml;
 	};
 }

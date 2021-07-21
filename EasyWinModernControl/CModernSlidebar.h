@@ -28,10 +28,6 @@ namespace EasyWinModernControl {
 		_TEasyWinModernCtrl_SlidebarCallback _callbackFunc = NULL;
 		PVOID _userData = NULL;
 
-		LPCWSTR xml = LR"(
-<StackPanel xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-</StackPanel>
-)";
+		static LPCWSTR xml;
 	};
 }

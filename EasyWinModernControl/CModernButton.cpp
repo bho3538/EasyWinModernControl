@@ -3,9 +3,19 @@
 
 using namespace EasyWinModernControl;
 
+LPCWSTR CModernButton::xml =  LR"(
+<StackPanel xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+</StackPanel>)";
+
 CModernButton::CModernButton(LPCWSTR controlName, DWORD id, LPCWSTR buttonLabel) {
-	this->_btn.Name(controlName);
-	this->_btn.Content(winrt::box_value(buttonLabel));
+	if (controlName) {
+		this->_btn.Name(controlName);
+	}
+
+	if (buttonLabel) {
+		this->_btn.Content(winrt::box_value(buttonLabel));
+	}
 	this->_id = id;
 }
 

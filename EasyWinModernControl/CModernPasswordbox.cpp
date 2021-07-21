@@ -3,11 +3,23 @@
 
 using namespace EasyWinModernControl;
 
-CModernPasswordbox::CModernPasswordbox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder, DWORD maxLength) {
+LPCWSTR CModernPasswordbox::xml = LR"(
+<StackPanel xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+</StackPanel>)";
 
-	this->_pwdbox.Name(controlName);
-	this->_pwdbox.Header(winrt::box_value(headerTitle));
-	this->_pwdbox.PlaceholderText(textPlaceholder);
+CModernPasswordbox::CModernPasswordbox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder, DWORD maxLength) {
+	if (controlName) {
+		this->_pwdbox.Name(controlName);
+	}
+
+	if (headerTitle) {
+		this->_pwdbox.Header(winrt::box_value(headerTitle));
+	}
+
+	if (textPlaceholder) {
+		this->_pwdbox.PlaceholderText(textPlaceholder);
+	}
 
 	if (maxLength > 0) {
 		this->_pwdbox.MaxLength(maxLength);

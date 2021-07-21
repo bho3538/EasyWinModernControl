@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="헤더 파일\interface">
-      <UniqueIdentifier>{0a4477c1-733a-4108-9833-df2fe4442594}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\extern">
       <UniqueIdentifier>{bc2d62e6-bad5-4bf4-8c38-ff3293fb0e5b}</UniqueIdentifier>
     </Filter>
@@ -75,9 +72,6 @@
     </ClInclude>
     <ClInclude Include="CModernButton.h">
       <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="IModernControl.h">
-      <Filter>헤더 파일\interface</Filter>
     </ClInclude>
     <ClInclude Include="EasyWinMdrnCtrlWrapper.h">
       <Filter>헤더 파일\extern</Filter>

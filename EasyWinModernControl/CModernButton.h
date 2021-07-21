@@ -34,10 +34,6 @@ namespace EasyWinModernControl {
 
 		//static void _InternalClicked(const winrt::Windows::Foundation::IInspectable& sender, const RoutedEventArgs& args);
 
-		LPCWSTR xml = LR"(
-<StackPanel xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-</StackPanel>
-)";
+		static LPCWSTR xml;
 	};
 }

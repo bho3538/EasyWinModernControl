@@ -3,8 +3,15 @@
 
 using namespace EasyWinModernControl;
 
-CModernProgressring::CModernProgressring(LPCWSTR controlName) {
+LPCWSTR CModernProgressring::xml = LR"(
+<StackPanel xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+</StackPanel>)";
 
+CModernProgressring::CModernProgressring(LPCWSTR controlName) {
+	if (controlName) {
+		this->_ring.Name(controlName);
+	}
 }
 CModernProgressring::~CModernProgressring() {
 

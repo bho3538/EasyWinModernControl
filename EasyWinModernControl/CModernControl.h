@@ -1,7 +1,5 @@
 #pragma once
 
-#include "IModernControl.h"
-
 using namespace winrt;
 using namespace winrt::Windows::UI::Xaml;
 using namespace winrt::Windows::UI::Xaml::Hosting;
@@ -11,7 +9,7 @@ namespace EasyWinModernControl {
 	class CModernControl
 	{
 	public:
-		static HRESULT Initialize();
+		static HRESULT Initialize(BOOL useMTA);
 		static BOOL IsSupportSystem();
 
 		CModernControl();

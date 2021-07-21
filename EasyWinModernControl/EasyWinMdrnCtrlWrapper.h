@@ -31,6 +31,7 @@ extern "C" {
 		int unused;
 	} EASYMODERNTIMEPICKER,*PEASYMODERNTIMEPICKER;
 
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_InitializeApartment(BOOL useMTA);
 	__declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_IsSystemSupport();
 
 	//Textbox
@@ -68,6 +69,9 @@ extern "C" {
 	//Common
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_ShowControl(PVOID pControl, HWND parentHwnd);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_AdjustLayout(PVOID pControl);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_AdjustLayout(PVOID pControl);
+	__declspec(dllexport) HWND __cdecl EasyWinModernCtrl_GetRawControlHwnd(PVOID pControl);
+
 	// 0 : system default
 	// 1 : Light
 	// 2 : Dark
