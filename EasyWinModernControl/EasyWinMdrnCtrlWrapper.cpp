@@ -59,6 +59,10 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_InitializeApartment(BOOL us
 	CModernControl::Initialize(useMTA);
 }
 
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_UnInitialize() {
+	CModernControl::UnInitialize();
+}
+
 __declspec(dllexport)  PEASYMODERNPWDBOX __cdecl EasyWinModernCtrl_CreatePasswordBox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder, DWORD maxLength) {
 	PEASYMODERNPWDBOXINT pwdbox = (PEASYMODERNPWDBOXINT)malloc(sizeof(EASYMODERNPWDBOXINT));
 	if (pwdbox) {
@@ -89,7 +93,6 @@ __declspec(dllexport) PEASYMODERNTEXTBOX __cdecl EasyWinModernCtrl_CreateTextbox
 		txtbox->unused = _EASYWINNOTY_TEXTBOX;
 		txtbox->pTextbox = new CModernTextbox(controlName, headerTitle, textPlaceholder, enableMultiLine, enableUserChangeLine, maxTextLength);
 	}
-
 	return (PEASYMODERNTEXTBOX)txtbox;
 }
 

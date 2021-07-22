@@ -32,6 +32,7 @@ extern "C" {
 	} EASYMODERNTIMEPICKER,*PEASYMODERNTIMEPICKER;
 
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_InitializeApartment(BOOL useMTA);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_UnInitialize();
 	__declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_IsSystemSupport();
 
 	//Textbox

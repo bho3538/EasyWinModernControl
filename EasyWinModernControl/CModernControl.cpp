@@ -6,6 +6,9 @@ using namespace EasyWinModernControl;
 typedef NTSTATUS(__stdcall* TRtlGetVersion)(OSVERSIONINFOEXW* ovf);
 TRtlGetVersion _RtlGetVersion = NULL;
 
+WindowsXamlManager wm = NULL;
+
+
 HRESULT CModernControl::Initialize(BOOL useMTA) {
 	if (useMTA) {
 		winrt::init_apartment(apartment_type::multi_threaded);
@@ -14,7 +17,16 @@ HRESULT CModernControl::Initialize(BOOL useMTA) {
 		winrt::init_apartment(apartment_type::single_threaded);
 	}
 
+	wm = WindowsXamlManager::InitializeForCurrentThread();
+
+
 	return 0;
+}
+
+void CModernControl::UnInitialize() {
+	if (wm) {
+		wm.Close();
+	}
 }
 
 BOOL CModernControl::IsSupportSystem() {
@@ -43,7 +55,7 @@ CModernControl::CModernControl() {
 }
 
 CModernControl::~CModernControl() {
-
+	xs.Close();
 }
 
 
@@ -58,7 +70,7 @@ HRESULT CModernControl::Show(HWND parentHwnd) {
 	}
 	this->_parentHwnd = parentHwnd;
 
-	pXamlSource = this->xs.as<IDesktopWindowXamlSourceNative>();
+	pXamlSource = xs.as<IDesktopWindowXamlSourceNative>();
 	if (!pXamlSource) {
 		hr = E_FAIL;
 		goto escapeArea;
@@ -96,9 +108,11 @@ escapeArea:
 }
 
 void CModernControl::Close() {
-	CloseWindow(this->_uwpHwnd);
-	DestroyWindow(this->_uwpHwnd);
+	//CloseWindow(this->_uwpHwnd);
+	//DestroyWindow(this->_uwpHwnd);
 
+	//this->_uwpHwnd = NULL;
+	this->xs.Close();
 	this->_uwpHwnd = NULL;
 }
 

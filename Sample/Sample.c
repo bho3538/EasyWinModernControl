@@ -1,5 +1,7 @@
 ﻿#include <Windows.h>
 
+#include <stdio.h>
+
 #include "../EasyWinModernControl/EasyWinMdrnCtrlWrapper.h"
 
 #if _WIN64
@@ -66,6 +68,8 @@ int main()
 		return -1;
 	}
 
+	EasyWinModernCtrl_InitializeApartment(0);
+
 	WNDCLASSEX wClass = { 0 };
 	wClass.cbSize = sizeof(wClass);
 	wClass.style = 0;
@@ -91,6 +95,8 @@ int main()
 		DispatchMessage(&msg);
 	}
 
+	//must call
+	EasyWinModernCtrl_UnInitialize();
 
 	return 0;
 }
@@ -177,7 +183,7 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		if (g_TextboxInfo) {
 			MessageBox(hwnd, EasyWinModernCtrl_TextboxGetText(g_TextboxInfo), L"EasyWinModernControl", 0);
 		}
-	}; break;
+	}; break; 
 	case WM_SIZE: {
 		EasyWinModernCtrl_AdjustLayout(g_TextboxInfo);
 		EasyWinModernCtrl_AdjustLayout(g_ButtonInfo);
@@ -186,9 +192,12 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_AdjustLayout(g_ProgressringInfo);
 		EasyWinModernCtrl_AdjustLayout(g_TimePickerInfo);
 	}; break;
-	case WM_DESTROY: {
+	case WM_CLOSE: {
 		EasyWinModernCtrl_CloseControl(g_TextboxInfo);
 		EasyWinModernCtrl_CleanupControl(g_TextboxInfo);
+
+		EasyWinModernCtrl_CloseControl(g_PasswordBoxInfo);
+		EasyWinModernCtrl_CleanupControl(g_PasswordBoxInfo);
 
 		EasyWinModernCtrl_CloseControl(g_ButtonInfo);
 		EasyWinModernCtrl_CleanupControl(g_ButtonInfo);
@@ -231,8 +240,11 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 
 		CloseWindow(g_TimeLabel);
 		DestroyWindow(g_TimeLabel);
-
+		DestroyWindow(hwnd);
+	}; break;
+	case WM_DESTROY: {
 		PostQuitMessage(0);
+		return 0;
 	}; break;
 	}
 

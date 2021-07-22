@@ -53,11 +53,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Manifest Include="app.manifest">
-      <Filter>리소스 파일</Filter>
-    </Manifest>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="CModernTextbox.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>

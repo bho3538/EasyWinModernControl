@@ -10,6 +10,7 @@ namespace EasyWinModernControl {
 	{
 	public:
 		static HRESULT Initialize(BOOL useMTA);
+		static void UnInitialize();
 		static BOOL IsSupportSystem();
 
 		CModernControl();
@@ -30,8 +31,8 @@ namespace EasyWinModernControl {
 		virtual void SetTemplate();
 		virtual void OnAdjustLayout();
 
-
 		DesktopWindowXamlSource xs;
+
 		winrt::Windows::Foundation::IInspectable ins = NULL;
 
 		winrt::Windows::UI::Xaml::ElementTheme _theme = winrt::Windows::UI::Xaml::ElementTheme::Default;

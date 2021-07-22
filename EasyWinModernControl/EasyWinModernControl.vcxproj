@@ -163,9 +163,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Manifest Include="app.manifest" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="CModernButton.h" />
     <ClInclude Include="CModernControl.h" />
     <ClInclude Include="CModernPasswordbox.h" />
