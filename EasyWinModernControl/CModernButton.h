@@ -25,6 +25,8 @@ namespace EasyWinModernControl {
 
 	private:
 		Windows::UI::Xaml::Controls::Button _btn;
+		Windows::UI::Xaml::Controls::RadioButton _radio;
+
 
 		DWORD _id;
 		_TEasyWinModernCtrl_BtnCallback _callbackFunc = NULL;

@@ -5,7 +5,7 @@
 #include "../EasyWinModernControl/EasyWinMdrnCtrlWrapper.h"
 
 #if _WIN64
-#pragma comment(lib,"..\\x64\\Release\\EasyWinModernControl.lib")
+#pragma comment(lib,"..\\x64\\Debug\\EasyWinModernControl.lib")
 #else
 #pragma comment(lib,"..\\Release\\EasyWinModernControl.lib")
 #endif
@@ -21,6 +21,9 @@ HWND g_SlidebarValueLabel = NULL;
 HWND g_ProgressRingPlaceHwnd = NULL;
 HWND g_TimePickerPlaceHwnd = NULL;
 HWND g_TimeLabel = NULL;
+HWND g_RadioBtnPlaceHwnd = NULL;
+HWND g_RadioBtnPlaceHwnd2 = NULL;
+HWND g_CalendarDatePickerPlaceHwnd = NULL;
 
 PEASYMODERNTEXTBOX g_TextboxInfo = NULL;
 PEASYMODERNBTN g_ButtonInfo = NULL;
@@ -29,6 +32,10 @@ PEASYMODERNSLIDEBAR g_SlidebarInfo = NULL;
 PEASYMODERNPROGRESSRING g_ProgressringInfo = NULL;
 PEASYMODERNTIMEPICKER g_TimePickerInfo = NULL;
 PEASYMODERNPWDBOX g_PasswordBoxInfo = NULL;
+PEASYMODERNRADIOBTN g_RadioBtnInfo = NULL;
+PEASYMODERNRADIOBTN g_RadioBtnInfo2 = NULL;
+
+PEASYMODERNCALENDARDATEPICKER g_CalendarDatePickerInfo = NULL;
 
 BOOL __stdcall _SlidebarChanged(DWORD id, DOUBLE currentValue, PVOID userData) {
 	CHAR str[10] = { 0, };
@@ -56,6 +63,11 @@ BOOL __stdcall _TimeSelected(INT64 seconds, PVOID userData) {
 	sprintf_s(str, 10, "%d:%d", hour, minute);
 
 	SetWindowTextA(g_TimeLabel, str);
+
+	return TRUE;
+}
+
+BOOL __stdcall _RadioBtnChanged(LPCWSTR groupName, DWORD selectedIdx, PVOID userData) {
 
 	return TRUE;
 }
@@ -178,11 +190,56 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		g_PasswordBoxInfo = EasyWinModernCtrl_CreatePasswordBox(L"pwdbox_1", L"Enter Password", L"placeholder text", 0);
 		EasyWinModernCtrl_ShowControl(g_PasswordBoxInfo, g_PasswordPlaceHwnd);
 
+		//create uwp radio btn place
+		g_RadioBtnPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 5, 350, 350, 60, hwnd, NULL, NULL, NULL);
+		ShowWindow(g_RadioBtnPlaceHwnd, SW_SHOW);
+
+		g_RadioBtnInfo = EasyWinModernCtrl_CreateRadioButton(L"sel_option", L"Select Options", FALSE);
+
+		EasyWinModernCtrl_RadioBtnSetValueChangedCallback(g_RadioBtnInfo, &_RadioBtnChanged, NULL);
+
+		EasyWinModernCtrl_RadioBtnInsertItem(g_RadioBtnInfo, 0, L"option1", FALSE, TRUE);
+		EasyWinModernCtrl_RadioBtnInsertItem(g_RadioBtnInfo, 1, L"option2", FALSE, FALSE);
+		EasyWinModernCtrl_RadioBtnInsertItem(g_RadioBtnInfo, 2, L"option3", FALSE, TRUE);
+
+		EasyWinModernCtrl_RadioBtnSetCheckedItem(g_RadioBtnInfo, 0);
+
+		EasyWinModernCtrl_ShowControl(g_RadioBtnInfo, g_RadioBtnPlaceHwnd);
+
+		//create uwp radio btn place2
+		g_RadioBtnPlaceHwnd2 = CreateWindowW(L"static", L"", WS_CHILD, 400, 350, 100, 350, hwnd, NULL, NULL, NULL);
+		ShowWindow(g_RadioBtnPlaceHwnd2, SW_SHOW);
+
+		g_RadioBtnInfo2 = EasyWinModernCtrl_CreateRadioButton(L"sel_option2", NULL, TRUE);
+
+		EasyWinModernCtrl_RadioBtnSetValueChangedCallback(g_RadioBtnInfo2, &_RadioBtnChanged, NULL);
+
+
+		EasyWinModernCtrl_RadioBtnInsertItem(g_RadioBtnInfo2, 0, L"option1", FALSE, TRUE);
+		EasyWinModernCtrl_RadioBtnInsertItem(g_RadioBtnInfo2, 1, L"option2", FALSE, FALSE);
+		EasyWinModernCtrl_RadioBtnInsertItem(g_RadioBtnInfo2, 2, L"option3", FALSE, TRUE);
+
+		EasyWinModernCtrl_ShowControl(g_RadioBtnInfo2, g_RadioBtnPlaceHwnd2);
+
+		//Calendar DatePicker
+		g_CalendarDatePickerPlaceHwnd = CreateWindow(L"static", L"", WS_CHILD, 600, 350, 200, 60, hwnd, NULL, NULL, NULL);
+		ShowWindow(g_CalendarDatePickerPlaceHwnd, SW_SHOW);
+
+
+		g_CalendarDatePickerInfo = EasyWinModernCtrl_CreateCalendarDatePicker(L"sel_option2",L"Select Date");
+		EasyWinModernCtrl_ShowControl(g_CalendarDatePickerInfo, g_CalendarDatePickerPlaceHwnd);
+
+		FILETIME now;
+		GetSystemTimeAsFileTime(&now);
+
+		EasyWinModernCtrl_CalendarDatePickerSetMinDate(g_CalendarDatePickerInfo, now);
+
 	}; break;
 	case WM_COMMAND: {
 		if (g_TextboxInfo) {
 			MessageBox(hwnd, EasyWinModernCtrl_TextboxGetText(g_TextboxInfo), L"EasyWinModernControl", 0);
 		}
+
 	}; break; 
 	case WM_SIZE: {
 		EasyWinModernCtrl_AdjustLayout(g_TextboxInfo);
@@ -191,6 +248,9 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_AdjustLayout(g_SlidebarInfo);
 		EasyWinModernCtrl_AdjustLayout(g_ProgressringInfo);
 		EasyWinModernCtrl_AdjustLayout(g_TimePickerInfo);
+		EasyWinModernCtrl_AdjustLayout(g_RadioBtnInfo);
+		EasyWinModernCtrl_AdjustLayout(g_RadioBtnInfo2);
+		EasyWinModernCtrl_AdjustLayout(g_CalendarDatePickerInfo);
 	}; break;
 	case WM_CLOSE: {
 		EasyWinModernCtrl_CloseControl(g_TextboxInfo);
@@ -213,6 +273,13 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 
 		EasyWinModernCtrl_CloseControl(g_TimePickerInfo);
 		EasyWinModernCtrl_CleanupControl(g_TimePickerInfo);
+
+		EasyWinModernCtrl_CloseControl(g_RadioBtnInfo);
+		EasyWinModernCtrl_CleanupControl(g_RadioBtnInfo);
+		EasyWinModernCtrl_CloseControl(g_RadioBtnInfo2);
+		EasyWinModernCtrl_CleanupControl(g_RadioBtnInfo2);
+		EasyWinModernCtrl_CloseControl(g_CalendarDatePickerInfo);
+		EasyWinModernCtrl_CleanupControl(g_CalendarDatePickerInfo);
 
 		CloseWindow(g_LabelHwnd);
 		DestroyWindow(g_LabelHwnd);

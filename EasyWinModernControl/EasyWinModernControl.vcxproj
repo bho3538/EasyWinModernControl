@@ -151,8 +151,10 @@
   <ItemGroup>
     <ClCompile Include="CModernButton.cpp" />
     <ClCompile Include="CModernControl.cpp" />
+    <ClCompile Include="CModernCalendarDatePicker.cpp" />
     <ClCompile Include="CModernPasswordbox.cpp" />
     <ClCompile Include="CModernProgressring.cpp" />
+    <ClCompile Include="CModernRadioBtn.cpp" />
     <ClCompile Include="CModernSlidebar.cpp" />
     <ClCompile Include="CModernTextbox.cpp" />
     <ClCompile Include="CModernTimePicker.cpp" />
@@ -165,8 +167,10 @@
   <ItemGroup>
     <ClInclude Include="CModernButton.h" />
     <ClInclude Include="CModernControl.h" />
+    <ClInclude Include="CModernCalendarDatePicker.h" />
     <ClInclude Include="CModernPasswordbox.h" />
     <ClInclude Include="CModernProgressring.h" />
+    <ClInclude Include="CModernRadioBtn.h" />
     <ClInclude Include="CModernSlidebar.h" />
     <ClInclude Include="CModernTextbox.h" />
     <ClInclude Include="CModernTimePicker.h" />

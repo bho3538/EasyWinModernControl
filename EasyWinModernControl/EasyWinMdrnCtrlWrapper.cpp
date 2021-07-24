@@ -8,6 +8,8 @@
 #include "CModernSlidebar.h"
 #include "CModernProgressring.h"
 #include "CModernTimePicker.h"
+#include "CModernRadioBtn.h"
+#include "CModernCalendarDatePicker.h"
 
 using namespace EasyWinModernControl;
 
@@ -17,6 +19,8 @@ using namespace EasyWinModernControl;
 #define _EASYWINNOTY_SLIDEBAR 4
 #define _EASYWINNOTY_PROGRESSRING 5
 #define _EASYWINNOTY_TIMEPICKER 6
+#define _EASYWINNOTY_RADIOBTN 7
+#define _EASYWINNOTY_CALENDARPICKER 8
 
 
 typedef struct _EasyModernBtnInt {
@@ -49,7 +53,15 @@ typedef struct _EasyModernTimePickerInt {
 	CModernTimePicker* pTimePicker;
 } EASYMODERNTIMEPICKERINT, * PEASYMODERNTIMEPICKERINT;
 
+typedef struct _EasyModernRadioBtnInt {
+	int unused;
+	CModernRadioBtn* pRadioBtn;
+} EASYMODERNRADIOBTNINT, * PEASYMODERNRADIOBTNINT;
 
+typedef struct _EasyModernCalendarDatePickerInt {
+	int unused;
+	CModernCalendarDatePicker* pDatePicker;
+} EASYMODERNCALENDARDATEPICKERINT, * PEASYMODERNCALENDARDATEPICKERINT;
 
 __declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_IsSystemSupport() {
 	return CModernControl::IsSupportSystem();
@@ -217,6 +229,81 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_TimePickerSetValueChangedCa
 	}
 }
 
+__declspec(dllexport) PEASYMODERNRADIOBTN __cdecl EasyWinModernCtrl_CreateRadioButton(LPCWSTR groupName, LPCWSTR headerText, BOOL useVerticalMode) {
+	PEASYMODERNRADIOBTNINT radioBtn = (PEASYMODERNRADIOBTNINT)malloc(sizeof(EASYMODERNRADIOBTNINT));
+	if (radioBtn) {
+		radioBtn->unused = _EASYWINNOTY_RADIOBTN;
+		radioBtn->pRadioBtn = new CModernRadioBtn(groupName, headerText, useVerticalMode);
+	}
+
+	return (PEASYMODERNRADIOBTN)radioBtn;
+}
+
+__declspec(dllexport) void EasyWinModernCtrl_RadioBtnInsertItem(PEASYMODERNRADIOBTN pRadioBtn, DWORD idx, LPCWSTR text, BOOL defaultChecked, BOOL enabled) {
+	PEASYMODERNRADIOBTNINT pInfo = (PEASYMODERNRADIOBTNINT)pRadioBtn;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_RADIOBTN) {
+		pInfo->pRadioBtn->InsertItem(idx, text, defaultChecked, enabled);
+	}
+}
+
+__declspec(dllexport) DWORD  EasyWinModernCtrl_RadioBtnGetCheckedItem(PEASYMODERNRADIOBTN pRadioBtn) {
+	PEASYMODERNRADIOBTNINT pInfo = (PEASYMODERNRADIOBTNINT)pRadioBtn;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_RADIOBTN) {
+		return pInfo->pRadioBtn->GetCheckedItem();
+	}
+	return MAXDWORD;
+}
+__declspec(dllexport) void  EasyWinModernCtrl_RadioBtnSetCheckedItem(PEASYMODERNRADIOBTN pRadioBtn, DWORD idx) {
+	PEASYMODERNRADIOBTNINT pInfo = (PEASYMODERNRADIOBTNINT)pRadioBtn;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_RADIOBTN) {
+		pInfo->pRadioBtn->SetCheckedItem(idx);
+	}
+}
+
+__declspec(dllexport) void  EasyWinModernCtrl_RadioBtnSetValueChangedCallback(PEASYMODERNRADIOBTN pRadioBtn, TEasyWinModernCtrl_RadioBtnCallback cb, PVOID userData) {
+	PEASYMODERNRADIOBTNINT pInfo = (PEASYMODERNRADIOBTNINT)pRadioBtn;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_RADIOBTN) {
+		pInfo->pRadioBtn->SetValueChangedCallback(cb, userData);
+	}
+}
+
+__declspec(dllexport) PEASYMODERNCALENDARDATEPICKER __cdecl EasyWinModernCtrl_CreateCalendarDatePicker(LPCWSTR controlName, LPCWSTR headerText) {
+	PEASYMODERNCALENDARDATEPICKERINT pDatePicker = (PEASYMODERNCALENDARDATEPICKERINT)malloc(sizeof(EASYMODERNCALENDARDATEPICKERINT));
+	if (pDatePicker) {
+		pDatePicker->unused = _EASYWINNOTY_CALENDARPICKER;
+		pDatePicker->pDatePicker = new CModernCalendarDatePicker(controlName, headerText);
+	}
+
+	return (PEASYMODERNCALENDARDATEPICKER)pDatePicker;
+}
+
+__declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_CalendarDatePickerGetSelectedDate(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, PFILETIME pSelectedTime) {
+	PEASYMODERNCALENDARDATEPICKERINT pInfo = (PEASYMODERNCALENDARDATEPICKERINT)pCalendarDatePicker;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_CALENDARPICKER) {
+		return pInfo->pDatePicker->GetSelectedDate(pSelectedTime);
+	}
+	return FALSE;
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_CalendarDatePickerSetDate(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, FILETIME date) {
+	PEASYMODERNCALENDARDATEPICKERINT pInfo = (PEASYMODERNCALENDARDATEPICKERINT)pCalendarDatePicker;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_CALENDARPICKER) {
+		pInfo->pDatePicker->SetDate(date);
+	}
+}
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_CalendarDatePickerSetMinDate(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, FILETIME date) {
+	PEASYMODERNCALENDARDATEPICKERINT pInfo = (PEASYMODERNCALENDARDATEPICKERINT)pCalendarDatePicker;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_CALENDARPICKER) {
+		pInfo->pDatePicker->SetMinDate(date);
+	}
+}
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_CalendarDatePickerSetMaxDate(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, FILETIME date) {
+	PEASYMODERNCALENDARDATEPICKERINT pInfo = (PEASYMODERNCALENDARDATEPICKERINT)pCalendarDatePicker;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_CALENDARPICKER) {
+		pInfo->pDatePicker->SetMaxDate(date);
+	}
+}
+
 
 __declspec(dllexport) void __cdecl EasyWinModernCtrl_ShowControl(PVOID pControl,HWND parentHwnd) {
 	PEASYMODERNBTNINT pControlInfo = (PEASYMODERNBTNINT)pControl;
@@ -285,6 +372,12 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_CleanupControl(PVOID pContr
 		}; break;
 		case _EASYWINNOTY_TIMEPICKER: {
 			delete (CModernTimePicker*)(pControlInfo->pBtn);
+		}; break;
+		case _EASYWINNOTY_RADIOBTN: {
+			delete (CModernRadioBtn*)(pControlInfo->pBtn);
+		}; break;
+		case _EASYWINNOTY_CALENDARPICKER: {
+			delete (CModernCalendarDatePicker*)(pControlInfo->pBtn);
 		}; break;
 	}
 
