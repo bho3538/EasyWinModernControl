@@ -159,6 +159,13 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_ButtonSetUseAccentColor(PEA
 	}
 }
 
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_ButtonSetEnableControl(PEASYMODERNBTN pBtnInfo, BOOL enable) {
+	PEASYMODERNBTNINT pInfo = (PEASYMODERNBTNINT)pBtnInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_BUTTON) {
+		pInfo->pBtn->SetEnableControl(enable);
+	}
+}
+
 
 __declspec(dllexport) PEASYMODERNSLIDEBAR __cdecl EasyWinModernCtrl_CreateSlidebar(LPCWSTR controlName, DWORD id, DOUBLE minVal, DOUBLE maxVal, DOUBLE step, DOUBLE defaultValue) {
 	PEASYMODERNSLIDEBARINT slidebar = (PEASYMODERNSLIDEBARINT)malloc(sizeof(EASYMODERNSLIDEBARINT));
@@ -184,6 +191,13 @@ __declspec(dllexport) DOUBLE __cdecl EasyWinModernCtrl_SlidebarGetValue(PEASYMOD
 	}
 
 	return 0;
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_SlidebarSetEnableControl(PEASYMODERNSLIDEBAR pSlidebarInfo, BOOL enable) {
+	PEASYMODERNSLIDEBARINT pInfo = (PEASYMODERNSLIDEBARINT)pSlidebarInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_SLIDEBAR) {
+		pInfo->pSlidebar->SetEnableControl(enable);
+	}
 }
 
 __declspec(dllexport) PEASYMODERNPROGRESSRING __cdecl EasyWinModernCtrl_CreateProgressring(LPCWSTR controlName) {
@@ -226,6 +240,13 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_TimePickerSetValueChangedCa
 	PEASYMODERNTIMEPICKERINT pInfo = (PEASYMODERNTIMEPICKERINT)pTimePickerInfo;
 	if (pInfo && pInfo->unused == _EASYWINNOTY_TIMEPICKER) {
 		pInfo->pTimePicker->SetTimeCallback(cb, userData);
+	}
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_TimePickerEnableControl(PEASYMODERNTIMEPICKER pTimePickerInfo, BOOL enable) {
+	PEASYMODERNTIMEPICKERINT pInfo = (PEASYMODERNTIMEPICKERINT)pTimePickerInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_TIMEPICKER) {
+		pInfo->pTimePicker->SetEnableControl(enable);
 	}
 }
 
@@ -301,6 +322,20 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_CalendarDatePickerSetMaxDat
 	PEASYMODERNCALENDARDATEPICKERINT pInfo = (PEASYMODERNCALENDARDATEPICKERINT)pCalendarDatePicker;
 	if (pInfo && pInfo->unused == _EASYWINNOTY_CALENDARPICKER) {
 		pInfo->pDatePicker->SetMaxDate(date);
+	}
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_CalendarDatePickerSetSelectedDateCallback(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, TEasyWinModernCtrl_CalendarDatePickerCallback cb, PVOID userData) {
+	PEASYMODERNCALENDARDATEPICKERINT pInfo = (PEASYMODERNCALENDARDATEPICKERINT)pCalendarDatePicker;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_CALENDARPICKER) {
+		pInfo->pDatePicker->SetSelectedDateCallback(cb, userData);
+	}
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_CalendarDatePickerEnableControl(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, BOOL enable) {
+	PEASYMODERNCALENDARDATEPICKERINT pInfo = (PEASYMODERNCALENDARDATEPICKERINT)pCalendarDatePicker;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_CALENDARPICKER) {
+		pInfo->pDatePicker->SetEnableControl(enable);
 	}
 }
 

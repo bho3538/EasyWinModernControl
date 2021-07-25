@@ -63,6 +63,10 @@ DOUBLE CModernSlidebar::GetValue() {
 	return this->_slider.Value();
 }
 
+void CModernSlidebar::SetEnableControl(BOOL enable) {
+	this->_slider.IsEnabled(enable);
+}
+
 void CModernSlidebar::OnAdjustLayout() {
 	this->_slider.Height(this->_height);
 	this->_slider.Width(this->_width);

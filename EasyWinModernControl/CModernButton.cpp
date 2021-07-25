@@ -59,6 +59,10 @@ void CModernButton::CallCB() {
 	}
 }
 
+void CModernButton::SetEnableControl(BOOL enable) {
+	this->_btn.IsEnabled(enable);
+}
+
 void CModernButton::SetUseAccentColor(BOOL enable) {
 	this->_useAccentColor = enable;
 }

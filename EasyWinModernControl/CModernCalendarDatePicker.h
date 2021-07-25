@@ -3,6 +3,8 @@
 
 namespace EasyWinModernControl {
 
+	typedef BOOL(__stdcall* _TEasyWinModernCtrl_CalendarDatePickerCallback)(FILETIME selectedDate, PVOID userData);
+
 	class CModernCalendarDatePicker : CModernControl
 	{
 	public:
@@ -13,7 +15,11 @@ namespace EasyWinModernControl {
 		void SetDate(FILETIME date);
 		void SetMinDate(FILETIME date);
 		void SetMaxDate(FILETIME date);
+		void SetSelectedDateCallback(_TEasyWinModernCtrl_CalendarDatePickerCallback cb,PVOID userData);
+		void SetEnableControl(BOOL enable);
 
+		//internal use
+		void CallCB();
 
 	protected:
 		void SetTemplate();
@@ -21,6 +27,9 @@ namespace EasyWinModernControl {
 
 	private:
 		Windows::UI::Xaml::Controls::CalendarDatePicker _datePicker;
+
+		_TEasyWinModernCtrl_CalendarDatePickerCallback _cb = NULL;
+		PVOID _userData = NULL;
 
 		static LPCWSTR xml;
 	};

@@ -100,7 +100,11 @@ void CModernRadioBtn::OnAdjustLayout() {
         
         Windows::UI::Xaml::Controls::ScrollViewer scrollViewer = panel.Children().GetAt(_useHeader).as<Windows::UI::Xaml::Controls::ScrollViewer>();
 
-        DOUBLE scrollHeight = this->_height - 20;
+        DOUBLE scrollHeight = this->_height;
+
+        if (_useHeader) {
+            scrollHeight -= 20;
+        }
 
         scrollViewer.Height(scrollHeight);
     }

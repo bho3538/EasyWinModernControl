@@ -30,11 +30,6 @@ void CModernTimePicker::SetTemplate() {
 	}
 
 
-	//this->_picker.TimeChanged([this](const winrt::Windows::Foundation::IInspectable& sender, const Windows::UI::Xaml::Controls::TimePickerValueChangedEventArgs& args)
-	//	{
-	//		this->CallCB();
-	//	});
-
 	this->_picker.SelectedTimeChanged([this](const winrt::Windows::Foundation::IInspectable& sender, const Windows::UI::Xaml::Controls::TimePickerSelectedValueChangedEventArgs& args)
 		{
 			this->CallCB();
@@ -84,6 +79,10 @@ void CModernTimePicker::SetTimeUsingSeconds(INT64 seconds) {
 void CModernTimePicker::SetTimeCallback(_TEasyWinModernCtrl_TimePickerCallback callbackFunc, PVOID userData) {
 	this->_callbackFunc = callbackFunc;
 	this->_userData = userData;
+}
+
+void CModernTimePicker::SetEnableControl(BOOL enable) {
+	this->_picker.IsEnabled(enable);
 }
 
 void CModernTimePicker::OnAdjustLayout() {

@@ -1,11 +1,14 @@
 ﻿#include <Windows.h>
 
+#include <shlwapi.h>
+#pragma comment(lib,"Shlwapi.lib")
+
 #include <stdio.h>
 
 #include "../EasyWinModernControl/EasyWinMdrnCtrlWrapper.h"
 
 #if _WIN64
-#pragma comment(lib,"..\\x64\\Debug\\EasyWinModernControl.lib")
+#pragma comment(lib,"..\\x64\\Release\\EasyWinModernControl.lib")
 #else
 #pragma comment(lib,"..\\Release\\EasyWinModernControl.lib")
 #endif
@@ -24,6 +27,7 @@ HWND g_TimeLabel = NULL;
 HWND g_RadioBtnPlaceHwnd = NULL;
 HWND g_RadioBtnPlaceHwnd2 = NULL;
 HWND g_CalendarDatePickerPlaceHwnd = NULL;
+HWND g_DateLabel = NULL;
 
 PEASYMODERNTEXTBOX g_TextboxInfo = NULL;
 PEASYMODERNBTN g_ButtonInfo = NULL;
@@ -34,7 +38,6 @@ PEASYMODERNTIMEPICKER g_TimePickerInfo = NULL;
 PEASYMODERNPWDBOX g_PasswordBoxInfo = NULL;
 PEASYMODERNRADIOBTN g_RadioBtnInfo = NULL;
 PEASYMODERNRADIOBTN g_RadioBtnInfo2 = NULL;
-
 PEASYMODERNCALENDARDATEPICKER g_CalendarDatePickerInfo = NULL;
 
 BOOL __stdcall _SlidebarChanged(DWORD id, DOUBLE currentValue, PVOID userData) {
@@ -68,6 +71,17 @@ BOOL __stdcall _TimeSelected(INT64 seconds, PVOID userData) {
 }
 
 BOOL __stdcall _RadioBtnChanged(LPCWSTR groupName, DWORD selectedIdx, PVOID userData) {
+
+	return TRUE;
+}
+
+BOOL __stdcall _CalendarDateChanged(FILETIME selectedDate, PVOID userData) {
+	WCHAR buffer[64];
+	DWORD dwFlags = FDTF_SHORTDATE | FDTF_NOAUTOREADINGORDER;
+
+	SHFormatDateTime(&selectedDate, &dwFlags, buffer, 64);
+
+	SetWindowTextW(g_DateLabel, buffer);
 
 	return TRUE;
 }
@@ -183,7 +197,7 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		ShowWindow(g_TimeLabel, SW_SHOW);
 
 		//create uwp passwordbox place
-		g_PasswordPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 5, 250, 200, 100, hwnd, NULL, NULL, NULL);
+		g_PasswordPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 5, 250, 300, 60, hwnd, NULL, NULL, NULL);
 		ShowWindow(g_PasswordPlaceHwnd, SW_SHOW);
 
 		//create uwp passwordbox
@@ -210,10 +224,9 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		g_RadioBtnPlaceHwnd2 = CreateWindowW(L"static", L"", WS_CHILD, 400, 350, 100, 350, hwnd, NULL, NULL, NULL);
 		ShowWindow(g_RadioBtnPlaceHwnd2, SW_SHOW);
 
+		//create uwp radio btn (vertical mode)
 		g_RadioBtnInfo2 = EasyWinModernCtrl_CreateRadioButton(L"sel_option2", NULL, TRUE);
-
 		EasyWinModernCtrl_RadioBtnSetValueChangedCallback(g_RadioBtnInfo2, &_RadioBtnChanged, NULL);
-
 
 		EasyWinModernCtrl_RadioBtnInsertItem(g_RadioBtnInfo2, 0, L"option1", FALSE, TRUE);
 		EasyWinModernCtrl_RadioBtnInsertItem(g_RadioBtnInfo2, 1, L"option2", FALSE, FALSE);
@@ -221,18 +234,22 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 
 		EasyWinModernCtrl_ShowControl(g_RadioBtnInfo2, g_RadioBtnPlaceHwnd2);
 
-		//Calendar DatePicker
-		g_CalendarDatePickerPlaceHwnd = CreateWindow(L"static", L"", WS_CHILD, 600, 350, 200, 60, hwnd, NULL, NULL, NULL);
+		//create uwp Calendar DatePicker place
+		g_CalendarDatePickerPlaceHwnd = CreateWindow(L"static", L"", WS_CHILD, 600, 350, 200, 55, hwnd, NULL, NULL, NULL);
 		ShowWindow(g_CalendarDatePickerPlaceHwnd, SW_SHOW);
-
-
+		//create uwp Calendar DatePicker
 		g_CalendarDatePickerInfo = EasyWinModernCtrl_CreateCalendarDatePicker(L"sel_option2",L"Select Date");
 		EasyWinModernCtrl_ShowControl(g_CalendarDatePickerInfo, g_CalendarDatePickerPlaceHwnd);
 
 		FILETIME now;
 		GetSystemTimeAsFileTime(&now);
+		//set current date for calendar date picker
+		EasyWinModernCtrl_CalendarDatePickerSetDate(g_CalendarDatePickerInfo, now);
+		EasyWinModernCtrl_CalendarDatePickerSetSelectedDateCallback(g_CalendarDatePickerInfo, &_CalendarDateChanged, NULL);
 
-		EasyWinModernCtrl_CalendarDatePickerSetMinDate(g_CalendarDatePickerInfo, now);
+		//create uwp calender date picker callback window (optional)
+		g_DateLabel = CreateWindowW(L"static", L"", WS_CHILD, 800, 350, 250, 30, hwnd, NULL, NULL, NULL);
+		ShowWindow(g_DateLabel, SW_SHOW);
 
 	}; break;
 	case WM_COMMAND: {

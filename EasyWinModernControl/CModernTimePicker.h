@@ -14,8 +14,8 @@ namespace EasyWinModernControl {
 
 		INT64 GetSelectedTimeAsSeconds();
 		void SetTimeUsingSeconds(INT64 seconds);
-
 		void SetTimeCallback(_TEasyWinModernCtrl_TimePickerCallback callbackFunc, PVOID userData);
+		void SetEnableControl(BOOL enable);
 
 		//internal use
 		void CallCB();

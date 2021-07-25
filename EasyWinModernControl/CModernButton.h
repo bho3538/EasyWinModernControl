@@ -14,6 +14,7 @@ namespace EasyWinModernControl {
 		void SetClickCallback(_TEasyWinModernCtrl_BtnCallback callbackFunc, PVOID userData);
 
 		void SetUseAccentColor(BOOL enable);
+		void SetEnableControl(BOOL enable);
 
 		//internal use
 		void CallCB();

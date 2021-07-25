@@ -14,6 +14,8 @@ namespace EasyWinModernControl {
 
 		DOUBLE GetValue();
 		void SetValueChangedCallback(_TEasyWinModernCtrl_SlidebarCallback callbackFunc, PVOID userData);
+		void SetEnableControl(BOOL enable);
+
 		//internal use
 		void CallCB();
 
