@@ -3,13 +3,16 @@
 Easy UWP Modern Control in plain win32 program. (C/C++)
 
 ![image](https://user-images.githubusercontent.com/12496720/126588737-32817b55-bb49-46a8-956c-12fff14413e5.png)
+![image](https://user-images.githubusercontent.com/12496720/126901456-f33acc87-ad04-43aa-ac41-ecfc6de5f941.png)
 
 ## Supported Control
 Textbox\
 Password box\
 Button\
 Slider\
-Time Picker
+Time Picker\
+Radio button\
+Calendar Date Picker
 
 ## How to use
 1.Download pre-compiled dll files and link it.\
@@ -34,7 +37,7 @@ For example, if you want to create button in Windows 10 RS5 or higher version, '
 And you can use 'EasyWinModernCtrl_CreateButton()' to create UWP button.\
 Otherwise (like Windows 7 or ~Windows 10 RS4) Your program need using classic win32 button.\
 
-![not_support](https://user-images.githubusercontent.com/12496720/126590113-7c87cb45-3627-4b3d-b17c-2fefe8d09974.png)
+![image](https://user-images.githubusercontent.com/12496720/126901481-755aacfa-460c-4720-a318-d5d8002ee9e3.png)
 
 Like this picture, Using this library does not mean that it cannot run on old version OS.
 
