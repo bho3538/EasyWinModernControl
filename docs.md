@@ -133,4 +133,33 @@ Get selected time as seconds.
 ### void __cdecl EasyWinModernCtrl_TimePickerSetTimeUsingSeconds(PEASYMODERNTIMEPICKER pTimePickerInfo, INT64 seconds);
 Set time as seconds.
 
-### ...(writing...)
+### void __cdecl EasyWinModernCtrl_TimePickerSetValueChangedCallback(PEASYMODERNTIMEPICKER pTimePickerInfo, TEasyWinModernCtrl_TimePickerCallback cb, PVOID userData);
+Set time changed callback.\
+  *cb : user-defined callback function. (type : 'typedef BOOL(__stdcall* TEasyWinModernCtrl_TimePickerCallback)(INT64 seconds, PVOID userData)')\
+  *userData : user-defined data.
+
+### void __cdecl EasyWinModernCtrl_TimePickerEnableControl(PEASYMODERNTIMEPICKER pTimePickerInfo, BOOL enable);
+Set enable / disable timepicker.\
+if control disabled, control will be 'graying out'.
+
+## Radio button
+### PEASYMODERNRADIOBTN __cdecl EasyWinModernCtrl_CreateRadioButton(LPCWSTR groupName, LPCWSTR headerText, BOOL useVerticalMode);
+Create radio button group.\
+  *groupName : unique radio button group name.\
+  *headerText : Set control header text. This parameter can be NULL.\
+  *useVerticalMode : Add radio buttons to vertical.
+ 
+### void __cdecl EasyWinModernCtrl_RadioBtnInsertItem(PEASYMODERNRADIOBTN pRadioBtn,DWORD idx, LPCWSTR text, BOOL defaultChecked, BOOL enabled);
+Insert radio button at group.\
+  *idx : radio button index. starts with 0.\
+  *text : radio button text.\
+  *defaultChecked : if 'TRUE' radio button will checked default.\
+  *enabled : if 'FALSE' radio button will disabled.
+  
+### DWORD __cdecl EasyWinModernCtrl_RadioBtnGetCheckedItem(PEASYMODERNRADIOBTN pRadioBtn);
+Get Selected radio button.\
+Returned selected radio button index number.\
+If any radio buttons are not selected, will returned MAXDWORD value.
+
+-------(writing)------
+
