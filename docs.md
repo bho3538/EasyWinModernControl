@@ -161,5 +161,45 @@ Get Selected radio button.\
 Returned selected radio button index number.\
 If any radio buttons are not selected, will returned MAXDWORD value.
 
--------(writing)------
+### void __cdecl EasyWinModernCtrl_RadioBtnSetCheckedItem(PEASYMODERNRADIOBTN pRadioBtn, DWORD idx);
+Set radio button selected.\
+  *idx : radio button index number which you want to select.\
+  
+### void  EasyWinModernCtrl_RadioBtnSetValueChangedCallback(PEASYMODERNRADIOBTN pRadioBtn, TEasyWinModernCtrl_RadioBtnCallback cb,PVOID userData);
+Set radio button select changed callback.\
+  *cb : user-defined callback function (type 'typedef BOOL(__stdcall* TEasyWinModernCtrl_RadioBtnCallback)(LPCWSTR groupName, DWORD selectedIdx, PVOID userData)')\
+  *userData : user-defined data.
+  
+## Calendar Date Picker
+### PEASYMODERNCALENDARDATEPICKER __cdecl EasyWinModernCtrl_CreateCalendarDatePicker(LPCWSTR controlName,LPCWSTR headerText);
+Create uwp calendar date picker.\
+  *controlName : unique name for uwp control.\
+  *headerTitle : Set control header text. This parameter can be NULL.
+  
+### BOOL __cdecl EasyWinModernCtrl_CalendarDatePickerGetSelectedDate(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker,PFILETIME pSelectedTime);
+Get selected date.\
+if user select date, function will return 'TRUE' and 'pSelectedTime' will has selected date.\
+if user does not select date, function will return 'FALSE'
+
+### void __cdecl EasyWinModernCtrl_CalendarDatePickerSetDate(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, FILETIME date);
+Set date.\
+  *date : date data if you want to set at calendar.
+
+### void __cdecl EasyWinModernCtrl_CalendarDatePickerSetMinDate(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, FILETIME date);
+Set minimum date at calendar.\
+If you set minimum date, user cannot select date before minimum date.
+
+### void __cdecl EasyWinModernCtrl_CalendarDatePickerSetMaxDate(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, FILETIME date);
+Set maximum date at calendar.\
+If you set maximum date, user cannot select date after maximum date.
+
+### void __cdecl EasyWinModernCtrl_CalendarDatePickerSetSelectedDateCallback(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, TEasyWinModernCtrl_CalendarDatePickerCallback cb, PVOID userData);
+Set date changed callback function.\
+  *cb : user-defined callback function (type 'typedef BOOL(__stdcall* TEasyWinModernCtrl_CalendarDatePickerCallback)(FILETIME selectedDate, PVOID userData)')\
+  *userData : user-defined data.
+  
+### declspec(dllexport) void __cdecl EasyWinModernCtrl_CalendarDatePickerEnableControl(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, BOOL enable);
+Set enable / disable datepicker.\
+if control disabled, control will be 'graying out'.
+
 
