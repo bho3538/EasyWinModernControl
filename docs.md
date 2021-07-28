@@ -147,7 +147,12 @@ if control disabled, control will be 'graying out'.
 Create radio button group.\
   *groupName : unique radio button group name.\
   *headerText : Set control header text. This parameter can be NULL.\
-  *useVerticalMode : Add radio buttons to vertical.
+  *useVerticalMode : Add radio buttons to vertical.\
+  Normal Mode\
+  ![image](https://user-images.githubusercontent.com/12496720/127257222-e728a05e-77a9-4a53-a137-fdadcf93f852.png)\
+  Vertical Mode\
+  ![image](https://user-images.githubusercontent.com/12496720/127257288-8401a58f-cc5d-4170-be9b-d0778bbcf8d3.png)
+
  
 ### void __cdecl EasyWinModernCtrl_RadioBtnInsertItem(PEASYMODERNRADIOBTN pRadioBtn,DWORD idx, LPCWSTR text, BOOL defaultChecked, BOOL enabled);
 Insert radio button at group.\
