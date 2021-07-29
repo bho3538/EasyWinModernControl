@@ -219,6 +219,12 @@ Set progress bar value.\
   *isIndeterminate : set isIndeterminate mode for progress bar. If this value is 'TRUE', 'isPause' , 'value' parameters will be ignored.\
   *isPause : set progress bar paused color.\
   *value : progress bar value.
+  
+![progressbar](https://user-images.githubusercontent.com/12496720/127430330-5b67e453-a995-4a27-9736-f8150481edd9.png) \
+first : normal progress bar.\
+second : progress bar in paused mode.(grayed out)\
+third : Indeterminate mode.
+
 
 ## Hyperlink
 ### PEASYMODERNHYPERLINK __cdecl EasyWinModernCtrl_CreateHyperlink(LPCWSTR controlName, LPCWSTR textLabel);
@@ -230,7 +236,7 @@ Create hyperlink control.
 Set hyperlink uri. if you set uri, custom callback will be ignored.\
   *uri : uri info.\
   example\
-  website : 'https://github.com/bho3538'\
+  website : 'https://github.com/bho3538' \
   launch windows settings : 'ms-settings:'
 
 ### void __cdecl EasyWinModernCtrl_HyperlinkSetCustomClickCallback(PEASYMODERNHYPERLINK pHyperlinkInfo, TEasyWinModernCtrl_HyperLinkCallback cb, PVOID userData);
