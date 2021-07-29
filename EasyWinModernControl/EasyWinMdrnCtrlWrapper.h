@@ -8,6 +8,7 @@ extern "C" {
 	typedef BOOL(__stdcall* TEasyWinModernCtrl_TimePickerCallback)(INT64 seconds, PVOID userData);
 	typedef BOOL(__stdcall* TEasyWinModernCtrl_RadioBtnCallback)(LPCWSTR groupName, DWORD selectedIdx, PVOID userData);
 	typedef BOOL(__stdcall* TEasyWinModernCtrl_CalendarDatePickerCallback)(FILETIME selectedDate, PVOID userData);
+	typedef BOOL(__stdcall* TEasyWinModernCtrl_HyperLinkCallback)(PVOID userData);
 
 
 	typedef struct _EasyModernBtn {
@@ -41,6 +42,14 @@ extern "C" {
 	typedef struct _EasyModernCalendarDatePicker {
 		int unused;
 	} EASYMODERNCALENDARDATEPICKER, * PEASYMODERNCALENDARDATEPICKER;
+
+	typedef struct _EasyModernProgressbar {
+		int unused;
+	} EASYMODERNPROGRESSBAR, * PEASYMODERNPROGRESSBAR;
+
+	typedef struct _EasyModernHyperLink {
+		int unused;
+	} EASYMODERNHYPERLINK, * PEASYMODERNHYPERLINK;
 
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_InitializeApartment(BOOL useMTA);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_UnInitialize();
@@ -85,10 +94,10 @@ extern "C" {
 
 	//RadioButton
 	__declspec(dllexport) PEASYMODERNRADIOBTN __cdecl EasyWinModernCtrl_CreateRadioButton(LPCWSTR groupName, LPCWSTR headerText, BOOL useVerticalMode);
-	__declspec(dllexport) void  EasyWinModernCtrl_RadioBtnInsertItem(PEASYMODERNRADIOBTN pRadioBtn,DWORD idx, LPCWSTR text, BOOL defaultChecked, BOOL enabled);
-	__declspec(dllexport) DWORD  EasyWinModernCtrl_RadioBtnGetCheckedItem(PEASYMODERNRADIOBTN pRadioBtn);
-	__declspec(dllexport) void  EasyWinModernCtrl_RadioBtnSetCheckedItem(PEASYMODERNRADIOBTN pRadioBtn, DWORD idx);
-	__declspec(dllexport) void  EasyWinModernCtrl_RadioBtnSetValueChangedCallback(PEASYMODERNRADIOBTN pRadioBtn, TEasyWinModernCtrl_RadioBtnCallback cb,PVOID userData);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_RadioBtnInsertItem(PEASYMODERNRADIOBTN pRadioBtn,DWORD idx, LPCWSTR text, BOOL defaultChecked, BOOL enabled);
+	__declspec(dllexport) DWORD __cdecl EasyWinModernCtrl_RadioBtnGetCheckedItem(PEASYMODERNRADIOBTN pRadioBtn);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_RadioBtnSetCheckedItem(PEASYMODERNRADIOBTN pRadioBtn, DWORD idx);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_RadioBtnSetValueChangedCallback(PEASYMODERNRADIOBTN pRadioBtn, TEasyWinModernCtrl_RadioBtnCallback cb,PVOID userData);
 
 	//CalendarDatePicker
 	__declspec(dllexport) PEASYMODERNCALENDARDATEPICKER __cdecl EasyWinModernCtrl_CreateCalendarDatePicker(LPCWSTR controlName,LPCWSTR headerText);
@@ -98,6 +107,16 @@ extern "C" {
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_CalendarDatePickerSetMaxDate(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, FILETIME date);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_CalendarDatePickerSetSelectedDateCallback(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, TEasyWinModernCtrl_CalendarDatePickerCallback cb, PVOID userData);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_CalendarDatePickerEnableControl(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker, BOOL enable);
+
+	//Progressbar
+	__declspec(dllexport) PEASYMODERNPROGRESSBAR __cdecl EasyWinModernCtrl_CreateProgressbar(LPCWSTR controlName, DOUBLE minVal, DOUBLE maxVal);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_ProgressbarSetValue(PEASYMODERNPROGRESSBAR pProgressInfo, BOOL isIndeterminate, BOOL isPause, DOUBLE value);
+
+	//Hyperlink
+	__declspec(dllexport) PEASYMODERNHYPERLINK __cdecl EasyWinModernCtrl_CreateHyperlink(LPCWSTR controlName, LPCWSTR textLabel);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_HyperlinkSetNavigateUri(PEASYMODERNHYPERLINK pHyperlinkInfo,LPCWSTR uri);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_HyperlinkSetCustomClickCallback(PEASYMODERNHYPERLINK pHyperlinkInfo, TEasyWinModernCtrl_HyperLinkCallback cb, PVOID userData);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_HyperlinkEnableControl(PEASYMODERNHYPERLINK pHyperlinkInfo, BOOL enable);
 
 
 	//Common

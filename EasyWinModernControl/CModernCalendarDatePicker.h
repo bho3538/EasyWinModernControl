@@ -5,7 +5,7 @@ namespace EasyWinModernControl {
 
 	typedef BOOL(__stdcall* _TEasyWinModernCtrl_CalendarDatePickerCallback)(FILETIME selectedDate, PVOID userData);
 
-	class CModernCalendarDatePicker : CModernControl
+	class CModernCalendarDatePicker : public CModernControl
 	{
 	public:
 		CModernCalendarDatePicker(LPCWSTR controlName, LPCWSTR headerText);

@@ -10,6 +10,8 @@
 #include "CModernTimePicker.h"
 #include "CModernRadioBtn.h"
 #include "CModernCalendarDatePicker.h"
+#include "CModernProgressbar.h"
+#include "CModernHyperlink.h"
 
 using namespace EasyWinModernControl;
 
@@ -21,7 +23,8 @@ using namespace EasyWinModernControl;
 #define _EASYWINNOTY_TIMEPICKER 6
 #define _EASYWINNOTY_RADIOBTN 7
 #define _EASYWINNOTY_CALENDARPICKER 8
-
+#define _EASYWINNOTY_PROGRESSBAR 9
+#define _EASYWINNOTY_HYPERLINK 10
 
 typedef struct _EasyModernBtnInt {
 	int unused;
@@ -62,6 +65,16 @@ typedef struct _EasyModernCalendarDatePickerInt {
 	int unused;
 	CModernCalendarDatePicker* pDatePicker;
 } EASYMODERNCALENDARDATEPICKERINT, * PEASYMODERNCALENDARDATEPICKERINT;
+
+typedef struct _EasyModernProgressbarInt {
+	int unused;
+	CModernProgressbar* pProgressbar;
+} EASYMODERNPROGRESSBARINT, * PEASYMODERNPROGRESSBARINT;
+
+typedef struct _EasyModernHyperLinkInt {
+	int unused;
+	CModernHyperlink* pHyperLink;
+} EASYMODERNHYPERLINKINT, * PEASYMODERNHYPERLINKINT;
 
 __declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_IsSystemSupport() {
 	return CModernControl::IsSupportSystem();
@@ -260,28 +273,28 @@ __declspec(dllexport) PEASYMODERNRADIOBTN __cdecl EasyWinModernCtrl_CreateRadioB
 	return (PEASYMODERNRADIOBTN)radioBtn;
 }
 
-__declspec(dllexport) void EasyWinModernCtrl_RadioBtnInsertItem(PEASYMODERNRADIOBTN pRadioBtn, DWORD idx, LPCWSTR text, BOOL defaultChecked, BOOL enabled) {
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_RadioBtnInsertItem(PEASYMODERNRADIOBTN pRadioBtn, DWORD idx, LPCWSTR text, BOOL defaultChecked, BOOL enabled) {
 	PEASYMODERNRADIOBTNINT pInfo = (PEASYMODERNRADIOBTNINT)pRadioBtn;
 	if (pInfo && pInfo->unused == _EASYWINNOTY_RADIOBTN) {
 		pInfo->pRadioBtn->InsertItem(idx, text, defaultChecked, enabled);
 	}
 }
 
-__declspec(dllexport) DWORD  EasyWinModernCtrl_RadioBtnGetCheckedItem(PEASYMODERNRADIOBTN pRadioBtn) {
+__declspec(dllexport) DWORD __cdecl EasyWinModernCtrl_RadioBtnGetCheckedItem(PEASYMODERNRADIOBTN pRadioBtn) {
 	PEASYMODERNRADIOBTNINT pInfo = (PEASYMODERNRADIOBTNINT)pRadioBtn;
 	if (pInfo && pInfo->unused == _EASYWINNOTY_RADIOBTN) {
 		return pInfo->pRadioBtn->GetCheckedItem();
 	}
 	return MAXDWORD;
 }
-__declspec(dllexport) void  EasyWinModernCtrl_RadioBtnSetCheckedItem(PEASYMODERNRADIOBTN pRadioBtn, DWORD idx) {
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_RadioBtnSetCheckedItem(PEASYMODERNRADIOBTN pRadioBtn, DWORD idx) {
 	PEASYMODERNRADIOBTNINT pInfo = (PEASYMODERNRADIOBTNINT)pRadioBtn;
 	if (pInfo && pInfo->unused == _EASYWINNOTY_RADIOBTN) {
 		pInfo->pRadioBtn->SetCheckedItem(idx);
 	}
 }
 
-__declspec(dllexport) void  EasyWinModernCtrl_RadioBtnSetValueChangedCallback(PEASYMODERNRADIOBTN pRadioBtn, TEasyWinModernCtrl_RadioBtnCallback cb, PVOID userData) {
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_RadioBtnSetValueChangedCallback(PEASYMODERNRADIOBTN pRadioBtn, TEasyWinModernCtrl_RadioBtnCallback cb, PVOID userData) {
 	PEASYMODERNRADIOBTNINT pInfo = (PEASYMODERNRADIOBTNINT)pRadioBtn;
 	if (pInfo && pInfo->unused == _EASYWINNOTY_RADIOBTN) {
 		pInfo->pRadioBtn->SetValueChangedCallback(cb, userData);
@@ -336,6 +349,50 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_CalendarDatePickerEnableCon
 	PEASYMODERNCALENDARDATEPICKERINT pInfo = (PEASYMODERNCALENDARDATEPICKERINT)pCalendarDatePicker;
 	if (pInfo && pInfo->unused == _EASYWINNOTY_CALENDARPICKER) {
 		pInfo->pDatePicker->SetEnableControl(enable);
+	}
+}
+
+__declspec(dllexport) PEASYMODERNPROGRESSBAR __cdecl EasyWinModernCtrl_CreateProgressbar(LPCWSTR controlName, DOUBLE minVal, DOUBLE maxVal) {
+	PEASYMODERNPROGRESSBARINT pProgressbar = (PEASYMODERNPROGRESSBARINT)malloc(sizeof(EASYMODERNPROGRESSBARINT));
+	if (pProgressbar) {
+		pProgressbar->unused = _EASYWINNOTY_PROGRESSBAR;
+		pProgressbar->pProgressbar = new CModernProgressbar(controlName, minVal, maxVal);
+	}
+
+	return (PEASYMODERNPROGRESSBAR)pProgressbar;
+}
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_ProgressbarSetValue(PEASYMODERNPROGRESSBAR pProgressInfo, BOOL isIndeterminate, BOOL isPause, DOUBLE value) {
+	PEASYMODERNPROGRESSBARINT pInfo = (PEASYMODERNPROGRESSBARINT)pProgressInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_PROGRESSBAR) {
+		pInfo->pProgressbar->SetValue(isIndeterminate, isPause, value);
+	}
+}
+
+__declspec(dllexport) PEASYMODERNHYPERLINK __cdecl EasyWinModernCtrl_CreateHyperlink(LPCWSTR controlName, LPCWSTR textLabel) {
+	PEASYMODERNHYPERLINKINT pHyperLink = (PEASYMODERNHYPERLINKINT)malloc(sizeof(EASYMODERNPROGRESSBARINT));
+	if (pHyperLink) {
+		pHyperLink->unused = _EASYWINNOTY_HYPERLINK;
+		pHyperLink->pHyperLink = new CModernHyperlink(controlName, textLabel);
+	}
+
+	return (PEASYMODERNHYPERLINK)pHyperLink;
+}
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_HyperlinkSetNavigateUri(PEASYMODERNHYPERLINK pHyperlinkInfo, LPCWSTR uri) {
+	PEASYMODERNHYPERLINKINT pInfo = (PEASYMODERNHYPERLINKINT)pHyperlinkInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_HYPERLINK) {
+		pInfo->pHyperLink->SetNavigateUri(uri);
+	}
+}
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_HyperlinkSetCustomClickCallback(PEASYMODERNHYPERLINK pHyperlinkInfo, TEasyWinModernCtrl_HyperLinkCallback cb, PVOID userData) {
+	PEASYMODERNHYPERLINKINT pInfo = (PEASYMODERNHYPERLINKINT)pHyperlinkInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_HYPERLINK) {
+		pInfo->pHyperLink->SetCustomClickCallback(cb, userData);
+	}
+}
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_HyperlinkEnableControl(PEASYMODERNHYPERLINK pHyperlinkInfo, BOOL enable) {
+	PEASYMODERNHYPERLINKINT pInfo = (PEASYMODERNHYPERLINKINT)pHyperlinkInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_HYPERLINK) {
+		pInfo->pHyperLink->SetEnableControl(enable);
 	}
 }
 
@@ -413,6 +470,12 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_CleanupControl(PVOID pContr
 		}; break;
 		case _EASYWINNOTY_CALENDARPICKER: {
 			delete (CModernCalendarDatePicker*)(pControlInfo->pBtn);
+		}; break;
+		case _EASYWINNOTY_PROGRESSBAR: {
+			delete (CModernProgressbar*)(pControlInfo->pBtn);
+		}; break;
+		case _EASYWINNOTY_HYPERLINK: {
+			delete (CModernHyperlink*)(pControlInfo->pBtn);
 		}; break;
 	}
 

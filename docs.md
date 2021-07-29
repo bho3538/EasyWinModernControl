@@ -37,7 +37,7 @@ Cleanup uwp control.
 ## Textbox
 ### PEASYMODERNTEXTBOX __cdecl EasyWinModernCtrl_CreateTextbox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder, BOOL enableMultiLine, BOOL enableUserChangeLine, DWORD maxTextLength);
 Create uwp textbox.\
-  *controlName : unique name for uwp control.\
+  *controlName : unique name for uwp control. This parameter can be NULL.\
   *headerTitle : Set control header text. This parameter can be NULL.\
   *textPlaceholder : Set textbox placeholder text. This parameter can be NULL.\
   *enableMultiLine : Set textbox multiple line mode.\
@@ -61,7 +61,7 @@ if control disabled, control will be 'graying out'.
 ## Password Box
 ### PEASYMODERNPWDBOX __cdecl EasyWinModernCtrl_CreatePasswordBox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder, DWORD maxLength);
 Create uwp password input box.\
-  *controlName : unique name for uwp control.\
+  *controlName : unique name for uwp control. This parameter can be NULL.\
   *headerTitle : Set control header text. This parameter can be NULL.\
   *textPlaceholder : Set password box placeholder text. This parameter can be NULL.\
   *maxTextLength : Set maximum password length. Set 0 to unlimited.
@@ -76,7 +76,7 @@ if control disabled, control will be 'graying out'.
 ## Button
 ### PEASYMODERNBTN __cdecl EasyWinModernCtrl_CreateButton(LPCWSTR controlName,DWORD id, LPCWSTR buttonLabel);
 Create uwp button.\
-  *controlName : unique name for uwp control.\
+  *controlName : unique name for uwp control. This parameter can be NULL.\
   *id : user-defined unique control id. used in clicked callback function.\
   *buttonLabel : Button label.
   
@@ -95,7 +95,7 @@ if control disabled, control will be 'graying out'.
 ## Slidebar (Slider)
 ### PEASYMODERNSLIDEBAR __cdecl EasyWinModernCtrl_CreateSlidebar(LPCWSTR controlName, DWORD id, DOUBLE minVal, DOUBLE maxVal, DOUBLE step, DOUBLE defaultValue);
 Create uwp slidebar.\
-  *controlName : unique name for uwp control.\
+  *controlName : unique name for uwp control. This parameter can be NULL.\
   *id : user-defined unique control id. used in clicked callback function.\
   *minVal : slidebar minimum value.\
   *maxVal : slidebar maximum value.\
@@ -117,13 +117,13 @@ if control disabled, control will be 'graying out'.
 ## Progress Ring (Loading ring)
 ### PEASYMODERNPROGRESSRING __cdecl EasyWinModernCtrl_CreateProgressring(LPCWSTR controlName);
 Create uwp progress ring.\
-  *controlName : unique name for uwp control.
+  *controlName : unique name for uwp control. This parameter can be NULL.
 
   
 ## Time Picker
 ### PEASYMODERNTIMEPICKER __cdecl EasyWinModernCtrl_CreateTimePicker(LPCWSTR controlName,LPCWSTR headerText,BOOL use24hours);
 Create uwp time picker.\
-  *controlName : unique name for uwp control.\
+  *controlName : unique name for uwp control. This parameter can be NULL.\
   *headerTitle : Set control header text. This parameter can be NULL.\
   *use24hours : use 24 hours format.
 
@@ -178,7 +178,7 @@ Set radio button select changed callback.\
 ## Calendar Date Picker
 ### PEASYMODERNCALENDARDATEPICKER __cdecl EasyWinModernCtrl_CreateCalendarDatePicker(LPCWSTR controlName,LPCWSTR headerText);
 Create uwp calendar date picker.\
-  *controlName : unique name for uwp control.\
+  *controlName : unique name for uwp control. This parameter can be NULL.\
   *headerTitle : Set control header text. This parameter can be NULL.
   
 ### BOOL __cdecl EasyWinModernCtrl_CalendarDatePickerGetSelectedDate(PEASYMODERNCALENDARDATEPICKER pCalendarDatePicker,PFILETIME pSelectedTime);
@@ -207,4 +207,33 @@ Set date changed callback function.\
 Set enable / disable datepicker.\
 if control disabled, control will be 'graying out'.
 
+## Progress bar
+### PEASYMODERNPROGRESSBAR __cdecl EasyWinModernCtrl_CreateProgressbar(LPCWSTR controlName, DOUBLE minVal, DOUBLE maxVal);
+Create progressbar\
+  *controlName : unique name for uwp control. This parameter can be NULL.\
+  *minVal : minimum value for progress bar.\
+  *maxVal : maximum value for progress bar.
 
+### void __cdecl EasyWinModernCtrl_ProgressbarSetValue(PEASYMODERNPROGRESSBAR pProgressInfo, BOOL isIndeterminate, BOOL isPause, DOUBLE value);
+Set progress bar value.\
+  *isIndeterminate : set isIndeterminate mode for progress bar. If this value is 'TRUE', 'isPause' , 'value' parameters will be ignored.\
+  *isPause : set progress bar paused color.\
+  *value : progress bar value.
+
+## Hyperlink
+### PEASYMODERNHYPERLINK __cdecl EasyWinModernCtrl_CreateHyperlink(LPCWSTR controlName, LPCWSTR textLabel);
+Create hyperlink control.
+  *controlName : unique name for uwp control. This parameter can be NULL.\
+  *textLabel : label for hyperlink.
+
+### void __cdecl EasyWinModernCtrl_HyperlinkSetNavigateUri(PEASYMODERNHYPERLINK pHyperlinkInfo,LPCWSTR uri);
+Set hyperlink uri. if you set uri, custom callback will be ignored.\
+  *uri : uri info.\
+  example\
+  website : 'https://github.com/bho3538'\
+  launch windows settings : 'ms-settings:'
+
+### void __cdecl EasyWinModernCtrl_HyperlinkSetCustomClickCallback(PEASYMODERNHYPERLINK pHyperlinkInfo, TEasyWinModernCtrl_HyperLinkCallback cb, PVOID userData);
+Set hyperlink click custom callback function. if you set custom callback function, navigateuri will be ignored.\
+  *cb : user-defined callback function (type 'typedef BOOL(__stdcall* TEasyWinModernCtrl_HyperLinkCallback)(PVOID userData)')\
+  *userData : user-defined data.

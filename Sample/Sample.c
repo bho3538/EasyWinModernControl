@@ -8,7 +8,7 @@
 #include "../EasyWinModernControl/EasyWinMdrnCtrlWrapper.h"
 
 #if _WIN64
-#pragma comment(lib,"..\\x64\\Release\\EasyWinModernControl.lib")
+#pragma comment(lib,"..\\x64\\Debug\\EasyWinModernControl.lib")
 #else
 #pragma comment(lib,"..\\Release\\EasyWinModernControl.lib")
 #endif
@@ -28,6 +28,10 @@ HWND g_RadioBtnPlaceHwnd = NULL;
 HWND g_RadioBtnPlaceHwnd2 = NULL;
 HWND g_CalendarDatePickerPlaceHwnd = NULL;
 HWND g_DateLabel = NULL;
+HWND g_ProgressbarPlaceHwnd = NULL;
+HWND g_ProgressbarPlaceHwnd2 = NULL;
+HWND g_ProgressbarPlaceHwnd3 = NULL;
+HWND g_HyperLinkPlaceHwnd = NULL;
 
 PEASYMODERNTEXTBOX g_TextboxInfo = NULL;
 PEASYMODERNBTN g_ButtonInfo = NULL;
@@ -39,6 +43,10 @@ PEASYMODERNPWDBOX g_PasswordBoxInfo = NULL;
 PEASYMODERNRADIOBTN g_RadioBtnInfo = NULL;
 PEASYMODERNRADIOBTN g_RadioBtnInfo2 = NULL;
 PEASYMODERNCALENDARDATEPICKER g_CalendarDatePickerInfo = NULL;
+PEASYMODERNPROGRESSBAR g_ProgressbarInfo = NULL;
+PEASYMODERNPROGRESSBAR g_ProgressbarInfo2 = NULL;
+PEASYMODERNPROGRESSBAR g_ProgressbarInfo3 = NULL;
+PEASYMODERNHYPERLINK g_HyperLinkInfo = NULL;
 
 BOOL __stdcall _SlidebarChanged(DWORD id, DOUBLE currentValue, PVOID userData) {
 	CHAR str[10] = { 0, };
@@ -90,7 +98,7 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 int main()
 {
 	if (!EasyWinModernCtrl_IsSystemSupport()) {
-		MessageBoxW(0, L"Not Supported OS.", L"", 0);
+		MessageBoxW(0, L"Not Supported OS.", L"Sample", 0);
 		return -1;
 	}
 
@@ -102,6 +110,7 @@ int main()
 	wClass.lpfnWndProc = (WNDPROC)_MainWindowProc;
 	wClass.hIcon = 0;
 	wClass.lpszClassName = L"MainWindow";
+	wClass.hbrBackground = CreateSolidBrush(RGB(255,255,255));
 	RegisterClassEx(&wClass);
 
 	HWND MainWindow = CreateWindowExW(0,
@@ -251,6 +260,41 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		g_DateLabel = CreateWindowW(L"static", L"", WS_CHILD, 800, 350, 250, 30, hwnd, NULL, NULL, NULL);
 		ShowWindow(g_DateLabel, SW_SHOW);
 
+		//create uwp progress bar place
+		g_ProgressbarPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 10, 450, 200, 5, hwnd, NULL, NULL, NULL);
+		ShowWindow(g_ProgressbarPlaceHwnd, SW_SHOW);
+
+		//create uwp progress bar
+		g_ProgressbarInfo = EasyWinModernCtrl_CreateProgressbar(L"progress_1", 0, 10);
+		EasyWinModernCtrl_ShowControl(g_ProgressbarInfo, g_ProgressbarPlaceHwnd);
+		EasyWinModernCtrl_ProgressbarSetValue(g_ProgressbarInfo, FALSE, FALSE , 3);
+
+		//create uwp progress bar place2
+		g_ProgressbarPlaceHwnd2 = CreateWindowW(L"static", L"", WS_CHILD, 10, 470, 200, 5, hwnd, NULL, NULL, NULL);
+		ShowWindow(g_ProgressbarPlaceHwnd2, SW_SHOW);
+
+		//create uwp progress bar2
+		g_ProgressbarInfo2 = EasyWinModernCtrl_CreateProgressbar(L"progress_2", 0, 10);
+		EasyWinModernCtrl_ShowControl(g_ProgressbarInfo2, g_ProgressbarPlaceHwnd2);
+		EasyWinModernCtrl_ProgressbarSetValue(g_ProgressbarInfo2, FALSE, TRUE , 3);
+
+		//create uwp progress bar place2
+		g_ProgressbarPlaceHwnd3 = CreateWindowW(L"static", L"", WS_CHILD, 10, 490, 200, 5, hwnd, NULL, NULL, NULL);
+		ShowWindow(g_ProgressbarPlaceHwnd3, SW_SHOW);
+
+		//create uwp progress bar2
+		g_ProgressbarInfo3 = EasyWinModernCtrl_CreateProgressbar(L"progress_3", 0, 10);
+		EasyWinModernCtrl_ShowControl(g_ProgressbarInfo3, g_ProgressbarPlaceHwnd3);
+		EasyWinModernCtrl_ProgressbarSetValue(g_ProgressbarInfo3, TRUE, FALSE, 0);
+
+		//create hyperlink place
+		g_HyperLinkPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 500, 450, 250, 35, hwnd, NULL, NULL, NULL);
+		ShowWindow(g_HyperLinkPlaceHwnd, SW_SHOW);
+
+		g_HyperLinkInfo = EasyWinModernCtrl_CreateHyperlink(L"link1", L"Go to homepage");
+		EasyWinModernCtrl_HyperlinkSetNavigateUri(g_HyperLinkInfo, L"https://github.com/bho3538");
+		EasyWinModernCtrl_ShowControl(g_HyperLinkInfo, g_HyperLinkPlaceHwnd);
+
 	}; break;
 	case WM_COMMAND: {
 		if (g_TextboxInfo) {
@@ -268,6 +312,10 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_AdjustLayout(g_RadioBtnInfo);
 		EasyWinModernCtrl_AdjustLayout(g_RadioBtnInfo2);
 		EasyWinModernCtrl_AdjustLayout(g_CalendarDatePickerInfo);
+		EasyWinModernCtrl_AdjustLayout(g_ProgressbarInfo);
+		EasyWinModernCtrl_AdjustLayout(g_ProgressbarInfo2);
+		EasyWinModernCtrl_AdjustLayout(g_ProgressbarInfo3);
+		EasyWinModernCtrl_AdjustLayout(g_HyperLinkInfo);
 	}; break;
 	case WM_CLOSE: {
 		EasyWinModernCtrl_CloseControl(g_TextboxInfo);
@@ -297,6 +345,16 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_CleanupControl(g_RadioBtnInfo2);
 		EasyWinModernCtrl_CloseControl(g_CalendarDatePickerInfo);
 		EasyWinModernCtrl_CleanupControl(g_CalendarDatePickerInfo);
+
+		EasyWinModernCtrl_CloseControl(g_ProgressbarInfo);
+		EasyWinModernCtrl_CleanupControl(g_ProgressbarInfo);
+		EasyWinModernCtrl_CloseControl(g_ProgressbarInfo2);
+		EasyWinModernCtrl_CleanupControl(g_ProgressbarInfo2);
+		EasyWinModernCtrl_CloseControl(g_ProgressbarInfo3);
+		EasyWinModernCtrl_CleanupControl(g_ProgressbarInfo3);
+
+		EasyWinModernCtrl_CloseControl(g_HyperLinkInfo);
+		EasyWinModernCtrl_CleanupControl(g_HyperLinkInfo);
 
 		CloseWindow(g_LabelHwnd);
 		DestroyWindow(g_LabelHwnd);

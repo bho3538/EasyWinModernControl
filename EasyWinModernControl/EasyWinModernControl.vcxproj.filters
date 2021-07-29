@@ -54,6 +54,12 @@
     <ClCompile Include="CModernCalendarDatePicker.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="CModernProgressbar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CModernHyperlink.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -90,6 +96,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="CModernCalendarDatePicker.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CModernProgressbar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CModernHyperlink.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

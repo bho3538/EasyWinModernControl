@@ -152,7 +152,9 @@
     <ClCompile Include="CModernButton.cpp" />
     <ClCompile Include="CModernControl.cpp" />
     <ClCompile Include="CModernCalendarDatePicker.cpp" />
+    <ClCompile Include="CModernHyperlink.cpp" />
     <ClCompile Include="CModernPasswordbox.cpp" />
+    <ClCompile Include="CModernProgressbar.cpp" />
     <ClCompile Include="CModernProgressring.cpp" />
     <ClCompile Include="CModernRadioBtn.cpp" />
     <ClCompile Include="CModernSlidebar.cpp" />
@@ -168,7 +170,9 @@
     <ClInclude Include="CModernButton.h" />
     <ClInclude Include="CModernControl.h" />
     <ClInclude Include="CModernCalendarDatePicker.h" />
+    <ClInclude Include="CModernHyperlink.h" />
     <ClInclude Include="CModernPasswordbox.h" />
+    <ClInclude Include="CModernProgressbar.h" />
     <ClInclude Include="CModernProgressring.h" />
     <ClInclude Include="CModernRadioBtn.h" />
     <ClInclude Include="CModernSlidebar.h" />
