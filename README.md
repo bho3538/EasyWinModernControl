@@ -31,6 +31,7 @@ Hyperlink control
   </compatibility>
 </assembly>
 ```
+[API Document](/docs.md)
 
 ## Supported OS
 Windows 10 RS5 +
