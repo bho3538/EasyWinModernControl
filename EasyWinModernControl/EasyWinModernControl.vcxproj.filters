@@ -60,6 +60,9 @@
     <ClCompile Include="CModernHyperlink.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="CModernSwitch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -102,6 +105,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="CModernHyperlink.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CModernSwitch.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

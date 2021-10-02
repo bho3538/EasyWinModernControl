@@ -12,6 +12,7 @@
 #include "CModernCalendarDatePicker.h"
 #include "CModernProgressbar.h"
 #include "CModernHyperlink.h"
+#include "CModernSwitch.h"
 
 using namespace EasyWinModernControl;
 
@@ -25,6 +26,7 @@ using namespace EasyWinModernControl;
 #define _EASYWINNOTY_CALENDARPICKER 8
 #define _EASYWINNOTY_PROGRESSBAR 9
 #define _EASYWINNOTY_HYPERLINK 10
+#define _EASYWINNOTY_SWITCH 11
 
 typedef struct _EasyModernBtnInt {
 	int unused;
@@ -75,6 +77,11 @@ typedef struct _EasyModernHyperLinkInt {
 	int unused;
 	CModernHyperlink* pHyperLink;
 } EASYMODERNHYPERLINKINT, * PEASYMODERNHYPERLINKINT;
+
+typedef struct _EasyModernSwitchInt {
+	int unused;
+	CModernSwitch* pSwitch;
+} EASYMODERNSWITCHINT, * PEASYMODERNSWITCHINT;
 
 __declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_IsSystemSupport() {
 	return CModernControl::IsSupportSystem();
@@ -397,6 +404,46 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_HyperlinkEnableControl(PEAS
 }
 
 
+__declspec(dllexport) PEASYMODERNSWITCH __cdecl EasyWinModernCtrl_CreateToggleSwitch(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR onContent, LPCWSTR offContent, BOOL defaultValue) {
+	PEASYMODERNSWITCHINT pSwitch = (PEASYMODERNSWITCHINT)malloc(sizeof(EASYMODERNSWITCHINT));
+	if (pSwitch) {
+		pSwitch->unused = _EASYWINNOTY_SWITCH;
+		pSwitch->pSwitch = new CModernSwitch(controlName, headerTitle,onContent,offContent,defaultValue);
+	}
+
+	return (PEASYMODERNSWITCH)pSwitch;
+}
+
+__declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_ToggleSwitchGetStatus(PEASYMODERNSWITCH pSwitch) {
+	PEASYMODERNSWITCHINT pInfo = (PEASYMODERNSWITCHINT)pSwitch;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_SWITCH) {
+		return pInfo->pSwitch->GetStatus();
+	}
+	return FALSE;
+}
+
+__declspec(dllexport) void EasyWinModernCtrl_ToggleSwitchSetChangedCallback(PEASYMODERNSWITCH pSwitch, TEasyWinModernCtrl_SwitchCallback callbackFunc, PVOID userData) {
+	PEASYMODERNSWITCHINT pInfo = (PEASYMODERNSWITCHINT)pSwitch;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_SWITCH) {
+		pInfo->pSwitch->SetValueChangedCallback(callbackFunc, userData);
+	}
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_ToggleSwitchEnableControl(PEASYMODERNSWITCH pSwitch, BOOL enable) {
+	PEASYMODERNSWITCHINT pInfo = (PEASYMODERNSWITCHINT)pSwitch;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_SWITCH) {
+		pInfo->pSwitch->SetEnableControl(enable);
+	}
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_ToggleSwitchSetStatus(PEASYMODERNSWITCH pSwitch, BOOL status) {
+	PEASYMODERNSWITCHINT pInfo = (PEASYMODERNSWITCHINT)pSwitch;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_SWITCH) {
+		pInfo->pSwitch->SetStatus(status);
+	}
+}
+
+
 __declspec(dllexport) void __cdecl EasyWinModernCtrl_ShowControl(PVOID pControl,HWND parentHwnd) {
 	PEASYMODERNBTNINT pControlInfo = (PEASYMODERNBTNINT)pControl;
 	if (pControlInfo) {
@@ -476,6 +523,9 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_CleanupControl(PVOID pContr
 		}; break;
 		case _EASYWINNOTY_HYPERLINK: {
 			delete (CModernHyperlink*)(pControlInfo->pBtn);
+		}; break;
+		case _EASYWINNOTY_SWITCH: {
+			delete (CModernSwitch*)(pControlInfo->pBtn);
 		}; break;
 	}
 

@@ -9,6 +9,7 @@ extern "C" {
 	typedef BOOL(__stdcall* TEasyWinModernCtrl_RadioBtnCallback)(LPCWSTR groupName, DWORD selectedIdx, PVOID userData);
 	typedef BOOL(__stdcall* TEasyWinModernCtrl_CalendarDatePickerCallback)(FILETIME selectedDate, PVOID userData);
 	typedef BOOL(__stdcall* TEasyWinModernCtrl_HyperLinkCallback)(PVOID userData);
+	typedef BOOL(__stdcall* TEasyWinModernCtrl_SwitchCallback)(BOOL status, PVOID userData);
 
 
 	typedef struct _EasyModernBtn {
@@ -50,6 +51,10 @@ extern "C" {
 	typedef struct _EasyModernHyperLink {
 		int unused;
 	} EASYMODERNHYPERLINK, * PEASYMODERNHYPERLINK;
+
+	typedef struct _EasyModernSwitch {
+		int unused;
+	} EASYMODERNSWITCH, *PEASYMODERNSWITCH;
 
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_InitializeApartment(BOOL useMTA);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_UnInitialize();
@@ -118,6 +123,12 @@ extern "C" {
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_HyperlinkSetCustomClickCallback(PEASYMODERNHYPERLINK pHyperlinkInfo, TEasyWinModernCtrl_HyperLinkCallback cb, PVOID userData);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_HyperlinkEnableControl(PEASYMODERNHYPERLINK pHyperlinkInfo, BOOL enable);
 
+	//ToggleSwitch
+	__declspec(dllexport) PEASYMODERNSWITCH __cdecl EasyWinModernCtrl_CreateToggleSwitch(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR onContent, LPCWSTR offContent, BOOL defaultValue);
+	__declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_ToggleSwitchGetStatus(PEASYMODERNSWITCH pSwitch);
+	__declspec(dllexport) void EasyWinModernCtrl_ToggleSwitchSetChangedCallback(PEASYMODERNSWITCH pSwitch,TEasyWinModernCtrl_SwitchCallback callbackFunc, PVOID userData);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_ToggleSwitchEnableControl(PEASYMODERNSWITCH pSwitch, BOOL enable);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_ToggleSwitchSetStatus(PEASYMODERNSWITCH pSwitch, BOOL status);
 
 	//Common
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_ShowControl(PVOID pControl, HWND parentHwnd);

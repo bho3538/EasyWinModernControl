@@ -32,6 +32,7 @@ HWND g_ProgressbarPlaceHwnd = NULL;
 HWND g_ProgressbarPlaceHwnd2 = NULL;
 HWND g_ProgressbarPlaceHwnd3 = NULL;
 HWND g_HyperLinkPlaceHwnd = NULL;
+HWND g_ToggleSwitchPlaceHwnd = NULL;
 
 PEASYMODERNTEXTBOX g_TextboxInfo = NULL;
 PEASYMODERNBTN g_ButtonInfo = NULL;
@@ -47,6 +48,7 @@ PEASYMODERNPROGRESSBAR g_ProgressbarInfo = NULL;
 PEASYMODERNPROGRESSBAR g_ProgressbarInfo2 = NULL;
 PEASYMODERNPROGRESSBAR g_ProgressbarInfo3 = NULL;
 PEASYMODERNHYPERLINK g_HyperLinkInfo = NULL;
+PEASYMODERNSWITCH g_ToggleSwitchInfo = NULL;
 
 BOOL __stdcall _SlidebarChanged(DWORD id, DOUBLE currentValue, PVOID userData) {
 	CHAR str[10] = { 0, };
@@ -90,6 +92,18 @@ BOOL __stdcall _CalendarDateChanged(FILETIME selectedDate, PVOID userData) {
 	SHFormatDateTime(&selectedDate, &dwFlags, buffer, 64);
 
 	SetWindowTextW(g_DateLabel, buffer);
+
+	return TRUE;
+}
+
+BOOL __stdcall _ToggleSwitchChanged(BOOL status, PVOID userData) {
+
+	if (status) {
+		MessageBoxW(0, L"Switch On", L"", 0);
+	}
+	else {
+		MessageBoxW(0, L"Switch Off", L"", 0);
+	}
 
 	return TRUE;
 }
@@ -295,6 +309,15 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_HyperlinkSetNavigateUri(g_HyperLinkInfo, L"https://github.com/bho3538");
 		EasyWinModernCtrl_ShowControl(g_HyperLinkInfo, g_HyperLinkPlaceHwnd);
 
+		//create toggle switch place
+		g_ToggleSwitchPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 800, 450, 150, 100, hwnd, NULL, NULL, NULL);
+		ShowWindow(g_ToggleSwitchPlaceHwnd, SW_SHOW);
+
+		g_ToggleSwitchInfo = EasyWinModernCtrl_CreateToggleSwitch(L"switch1", L"Switch Title", L"On Text", L"Off Text", 1);
+		EasyWinModernCtrl_ToggleSwitchSetChangedCallback(g_ToggleSwitchInfo,&_ToggleSwitchChanged,NULL);
+		EasyWinModernCtrl_ShowControl(g_ToggleSwitchInfo, g_ToggleSwitchPlaceHwnd);
+		//EasyWinModernCtrl_ToggleSwitchSetStatus(g_ToggleSwitchInfo, FALSE);
+
 	}; break;
 	case WM_COMMAND: {
 		if (g_TextboxInfo) {
@@ -316,6 +339,7 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_AdjustLayout(g_ProgressbarInfo2);
 		EasyWinModernCtrl_AdjustLayout(g_ProgressbarInfo3);
 		EasyWinModernCtrl_AdjustLayout(g_HyperLinkInfo);
+		EasyWinModernCtrl_AdjustLayout(g_ToggleSwitchInfo);
 	}; break;
 	case WM_CLOSE: {
 		EasyWinModernCtrl_CloseControl(g_TextboxInfo);
@@ -355,6 +379,9 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 
 		EasyWinModernCtrl_CloseControl(g_HyperLinkInfo);
 		EasyWinModernCtrl_CleanupControl(g_HyperLinkInfo);
+		
+		EasyWinModernCtrl_CloseControl(g_ToggleSwitchInfo);
+		EasyWinModernCtrl_CleanupControl(g_ToggleSwitchInfo);
 
 		CloseWindow(g_LabelHwnd);
 		DestroyWindow(g_LabelHwnd);
