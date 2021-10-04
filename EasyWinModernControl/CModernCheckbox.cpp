@@ -57,6 +57,11 @@ void CModernCheckbox::SetEnableControl(BOOL enable) {
 	this->_checkbox.IsEnabled(enable);
 }
 
+void CModernCheckbox::SetValueChangedCallback(_TEasyWinModernCtrl_CheckboxCallback cb, PVOID userData) {
+	this->_cb = cb;
+	this->_userData = userData;
+}
+
 void CModernCheckbox::CallCB(BOOL isChecked, BOOL isIndeterminate) {
 	if (this->_cb) {
 		this->_cb(this->_id, isChecked, isIndeterminate);

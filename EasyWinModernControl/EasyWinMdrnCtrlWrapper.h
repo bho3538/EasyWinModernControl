@@ -140,6 +140,7 @@ extern "C" {
 	__declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_CheckboxGetStatus(PEASYMODERNCHECKBOX pCheckbox, PBOOL pIsIndeterminate);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_CheckboxSetStatus(PEASYMODERNCHECKBOX pCheckbox, BOOL isChecked, BOOL isIndeterminate);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_CheckboxSetEnableControl(PEASYMODERNCHECKBOX pCheckbox, BOOL enable);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_CheckboxSetChangedCallback(PEASYMODERNCHECKBOX pCheckbox, TEasyWinModernCtrl_CheckboxCallback callbackFunc, PVOID userData);
 
 
 	//Common

@@ -14,6 +14,7 @@ namespace EasyWinModernControl {
 		BOOL GetStatus(PBOOL isIndeterminate);
 		void SetStatus(BOOL isChecked, BOOL isIndeterminate);
 		void SetEnableControl(BOOL enable);
+		void SetValueChangedCallback(_TEasyWinModernCtrl_CheckboxCallback cb, PVOID userData);
 
 		void CallCB(BOOL isChecked, BOOL isIndeterminate);
 

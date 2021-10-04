@@ -101,11 +101,30 @@ BOOL __stdcall _CalendarDateChanged(FILETIME selectedDate, PVOID userData) {
 BOOL __stdcall _ToggleSwitchChanged(BOOL status, PVOID userData) {
 
 	if (status) {
-		MessageBoxW(0, L"Switch On", L"", 0);
+		MessageBoxW(0, L"Switch On", L"OnSwitchChanged", 0);
 	}
 	else {
-		MessageBoxW(0, L"Switch Off", L"", 0);
+		MessageBoxW(0, L"Switch Off", L"OnSwitchChanged", 0);
 	}
+
+	return TRUE;
+}
+
+BOOL __stdcall _CheckboxChanged(DWORD id, BOOL isChecked, BOOL Indeterminate) {
+
+	if (Indeterminate) {
+		MessageBoxW(0, L"On Indeterminate", L"Checkbox", 0);
+	}
+	else {
+		if (isChecked) {
+			MessageBoxW(0, L"On Checked", L"Checkbox", 0);
+		}
+		else {
+			MessageBoxW(0, L"On Unchecked", L"Checkbox", 0);
+		}
+	}
+
+
 
 	return TRUE;
 }
@@ -312,7 +331,7 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_ShowControl(g_HyperLinkInfo, g_HyperLinkPlaceHwnd);
 
 		//create toggle switch place
-		g_ToggleSwitchPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 800, 450, 150, 100, hwnd, NULL, NULL, NULL);
+		g_ToggleSwitchPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 800, 450, 150, 50, hwnd, NULL, NULL, NULL);
 		ShowWindow(g_ToggleSwitchPlaceHwnd, SW_SHOW);
 
 		//create uwp toggle switch
@@ -322,13 +341,16 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		//EasyWinModernCtrl_ToggleSwitchSetStatus(g_ToggleSwitchInfo, FALSE);
 
 		//create checkbox place
-		g_CheckboxPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 1000, 450, 150, 100, hwnd, NULL, NULL, NULL);
+		g_CheckboxPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 800, 550, 150, 50, hwnd, NULL, NULL, NULL);
 		ShowWindow(g_CheckboxPlaceHwnd, SW_SHOW);
 
 		g_CheckboxInfo = EasyWinModernCtrl_CreateCheckbox(L"chk1", 1, L"checkbox", 1);
+		EasyWinModernCtrl_CheckboxSetStatus(g_CheckboxInfo, 1, 1);
+		
+		EasyWinModernCtrl_CheckboxSetChangedCallback(g_CheckboxInfo, &_CheckboxChanged,NULL);
+
 		EasyWinModernCtrl_ShowControl(g_CheckboxInfo, g_CheckboxPlaceHwnd);
 
-		EasyWinModernCtrl_CheckboxSetStatus(g_CheckboxInfo, 1, 1);
 	}; break;
 	case WM_COMMAND: {
 		if (g_TextboxInfo) {
@@ -351,6 +373,7 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_AdjustLayout(g_ProgressbarInfo3);
 		EasyWinModernCtrl_AdjustLayout(g_HyperLinkInfo);
 		EasyWinModernCtrl_AdjustLayout(g_ToggleSwitchInfo);
+		EasyWinModernCtrl_AdjustLayout(g_CheckboxInfo);
 	}; break;
 	case WM_CLOSE: {
 		EasyWinModernCtrl_CloseControl(g_TextboxInfo);
@@ -393,6 +416,9 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		
 		EasyWinModernCtrl_CloseControl(g_ToggleSwitchInfo);
 		EasyWinModernCtrl_CleanupControl(g_ToggleSwitchInfo);
+
+		EasyWinModernCtrl_CloseControl(g_CheckboxInfo);
+		EasyWinModernCtrl_CleanupControl(g_CheckboxInfo);
 
 		CloseWindow(g_LabelHwnd);
 		DestroyWindow(g_LabelHwnd);

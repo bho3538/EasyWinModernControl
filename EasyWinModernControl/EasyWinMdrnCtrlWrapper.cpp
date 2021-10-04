@@ -479,6 +479,12 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_CheckboxSetEnableControl(PE
 		pInfo->pCheckbox->SetEnableControl(enable);
 	}
 }
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_CheckboxSetChangedCallback(PEASYMODERNCHECKBOX pCheckbox, TEasyWinModernCtrl_CheckboxCallback callbackFunc, PVOID userData) {
+	PEASYMODERNCHECKBOXINT pInfo = (PEASYMODERNCHECKBOXINT)pCheckbox;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_CHECKBOX) {
+		pInfo->pCheckbox->SetValueChangedCallback(callbackFunc, userData);
+	}
+}
 
 
 __declspec(dllexport) void __cdecl EasyWinModernCtrl_ShowControl(PVOID pControl,HWND parentHwnd) {
