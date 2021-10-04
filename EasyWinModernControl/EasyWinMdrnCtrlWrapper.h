@@ -10,6 +10,7 @@ extern "C" {
 	typedef BOOL(__stdcall* TEasyWinModernCtrl_CalendarDatePickerCallback)(FILETIME selectedDate, PVOID userData);
 	typedef BOOL(__stdcall* TEasyWinModernCtrl_HyperLinkCallback)(PVOID userData);
 	typedef BOOL(__stdcall* TEasyWinModernCtrl_SwitchCallback)(BOOL status, PVOID userData);
+	typedef BOOL(__stdcall* TEasyWinModernCtrl_CheckboxCallback)(DWORD id, BOOL isChecked, BOOL Indeterminate);
 
 
 	typedef struct _EasyModernBtn {
@@ -55,6 +56,10 @@ extern "C" {
 	typedef struct _EasyModernSwitch {
 		int unused;
 	} EASYMODERNSWITCH, *PEASYMODERNSWITCH;
+
+	typedef struct _EasyModernCheckbox {
+		int unused;
+	} EASYMODERNCHECKBOX, * PEASYMODERNCHECKBOX;
 
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_InitializeApartment(BOOL useMTA);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_UnInitialize();
@@ -129,6 +134,13 @@ extern "C" {
 	__declspec(dllexport) void EasyWinModernCtrl_ToggleSwitchSetChangedCallback(PEASYMODERNSWITCH pSwitch,TEasyWinModernCtrl_SwitchCallback callbackFunc, PVOID userData);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_ToggleSwitchEnableControl(PEASYMODERNSWITCH pSwitch, BOOL enable);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_ToggleSwitchSetStatus(PEASYMODERNSWITCH pSwitch, BOOL status);
+
+	//Checkbox
+	__declspec(dllexport) PEASYMODERNCHECKBOX __cdecl EasyWinModernCtrl_CreateCheckbox(LPCWSTR controlName,DWORD id, LPCWSTR label, BOOL allowIndeterminate);
+	__declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_CheckboxGetStatus(PEASYMODERNCHECKBOX pCheckbox, PBOOL pIsIndeterminate);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_CheckboxSetStatus(PEASYMODERNCHECKBOX pCheckbox, BOOL isChecked, BOOL isIndeterminate);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_CheckboxSetEnableControl(PEASYMODERNCHECKBOX pCheckbox, BOOL enable);
+
 
 	//Common
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_ShowControl(PVOID pControl, HWND parentHwnd);

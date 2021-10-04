@@ -13,6 +13,7 @@
 #include "CModernProgressbar.h"
 #include "CModernHyperlink.h"
 #include "CModernSwitch.h"
+#include "CModernCheckbox.h"
 
 using namespace EasyWinModernControl;
 
@@ -27,6 +28,7 @@ using namespace EasyWinModernControl;
 #define _EASYWINNOTY_PROGRESSBAR 9
 #define _EASYWINNOTY_HYPERLINK 10
 #define _EASYWINNOTY_SWITCH 11
+#define _EASYWINNOTY_CHECKBOX 12
 
 typedef struct _EasyModernBtnInt {
 	int unused;
@@ -82,6 +84,11 @@ typedef struct _EasyModernSwitchInt {
 	int unused;
 	CModernSwitch* pSwitch;
 } EASYMODERNSWITCHINT, * PEASYMODERNSWITCHINT;
+
+typedef struct _EasyModernCheckboxInt {
+	int unused;
+	CModernCheckbox* pCheckbox;
+} EASYMODERNCHECKBOXINT, *PEASYMODERNCHECKBOXINT;
 
 __declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_IsSystemSupport() {
 	return CModernControl::IsSupportSystem();
@@ -443,6 +450,36 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_ToggleSwitchSetStatus(PEASY
 	}
 }
 
+__declspec(dllexport) PEASYMODERNCHECKBOX __cdecl EasyWinModernCtrl_CreateCheckbox(LPCWSTR controlName, DWORD id, LPCWSTR label, BOOL allowIndeterminate) {
+	PEASYMODERNCHECKBOXINT pInfo = (PEASYMODERNCHECKBOXINT)malloc(sizeof(EASYMODERNCHECKBOXINT));
+	if (pInfo) {
+		pInfo->unused = _EASYWINNOTY_CHECKBOX;
+		pInfo->pCheckbox = new CModernCheckbox(controlName, id, label, allowIndeterminate);
+	}
+
+	return (PEASYMODERNCHECKBOX)pInfo;
+}
+
+__declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_CheckboxGetStatus(PEASYMODERNCHECKBOX pCheckbox, PBOOL pIsIndeterminate) {
+	PEASYMODERNCHECKBOXINT pInfo = (PEASYMODERNCHECKBOXINT)pCheckbox;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_CHECKBOX) {
+		return pInfo->pCheckbox->GetStatus(pIsIndeterminate);
+	}
+	return FALSE;
+}
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_CheckboxSetStatus(PEASYMODERNCHECKBOX pCheckbox, BOOL isChecked, BOOL isIndeterminate) {
+	PEASYMODERNCHECKBOXINT pInfo = (PEASYMODERNCHECKBOXINT)pCheckbox;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_CHECKBOX) {
+		pInfo->pCheckbox->SetStatus(isChecked, isIndeterminate);
+	}
+}
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_CheckboxSetEnableControl(PEASYMODERNCHECKBOX pCheckbox, BOOL enable) {
+	PEASYMODERNCHECKBOXINT pInfo = (PEASYMODERNCHECKBOXINT)pCheckbox;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_CHECKBOX) {
+		pInfo->pCheckbox->SetEnableControl(enable);
+	}
+}
+
 
 __declspec(dllexport) void __cdecl EasyWinModernCtrl_ShowControl(PVOID pControl,HWND parentHwnd) {
 	PEASYMODERNBTNINT pControlInfo = (PEASYMODERNBTNINT)pControl;
@@ -526,6 +563,9 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_CleanupControl(PVOID pContr
 		}; break;
 		case _EASYWINNOTY_SWITCH: {
 			delete (CModernSwitch*)(pControlInfo->pBtn);
+		}; break;
+		case _EASYWINNOTY_CHECKBOX: {
+			delete (CModernCheckbox*)(pControlInfo->pBtn);
 		}; break;
 	}
 

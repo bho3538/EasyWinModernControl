@@ -33,6 +33,7 @@ HWND g_ProgressbarPlaceHwnd2 = NULL;
 HWND g_ProgressbarPlaceHwnd3 = NULL;
 HWND g_HyperLinkPlaceHwnd = NULL;
 HWND g_ToggleSwitchPlaceHwnd = NULL;
+HWND g_CheckboxPlaceHwnd = NULL;
 
 PEASYMODERNTEXTBOX g_TextboxInfo = NULL;
 PEASYMODERNBTN g_ButtonInfo = NULL;
@@ -49,6 +50,7 @@ PEASYMODERNPROGRESSBAR g_ProgressbarInfo2 = NULL;
 PEASYMODERNPROGRESSBAR g_ProgressbarInfo3 = NULL;
 PEASYMODERNHYPERLINK g_HyperLinkInfo = NULL;
 PEASYMODERNSWITCH g_ToggleSwitchInfo = NULL;
+PEASYMODERNCHECKBOX g_CheckboxInfo = NULL;
 
 BOOL __stdcall _SlidebarChanged(DWORD id, DOUBLE currentValue, PVOID userData) {
 	CHAR str[10] = { 0, };
@@ -313,11 +315,20 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		g_ToggleSwitchPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 800, 450, 150, 100, hwnd, NULL, NULL, NULL);
 		ShowWindow(g_ToggleSwitchPlaceHwnd, SW_SHOW);
 
+		//create uwp toggle switch
 		g_ToggleSwitchInfo = EasyWinModernCtrl_CreateToggleSwitch(L"switch1", L"Switch Title", L"On Text", L"Off Text", 1);
 		EasyWinModernCtrl_ToggleSwitchSetChangedCallback(g_ToggleSwitchInfo,&_ToggleSwitchChanged,NULL);
 		EasyWinModernCtrl_ShowControl(g_ToggleSwitchInfo, g_ToggleSwitchPlaceHwnd);
 		//EasyWinModernCtrl_ToggleSwitchSetStatus(g_ToggleSwitchInfo, FALSE);
 
+		//create checkbox place
+		g_CheckboxPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 1000, 450, 150, 100, hwnd, NULL, NULL, NULL);
+		ShowWindow(g_CheckboxPlaceHwnd, SW_SHOW);
+
+		g_CheckboxInfo = EasyWinModernCtrl_CreateCheckbox(L"chk1", 1, L"checkbox", 1);
+		EasyWinModernCtrl_ShowControl(g_CheckboxInfo, g_CheckboxPlaceHwnd);
+
+		EasyWinModernCtrl_CheckboxSetStatus(g_CheckboxInfo, 1, 1);
 	}; break;
 	case WM_COMMAND: {
 		if (g_TextboxInfo) {
