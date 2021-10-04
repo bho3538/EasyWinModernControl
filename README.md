@@ -5,6 +5,8 @@ Easy UWP Modern Control in plain win32 program. (C/C++)
 ![image](https://user-images.githubusercontent.com/12496720/126588737-32817b55-bb49-46a8-956c-12fff14413e5.png)
 ![image](https://user-images.githubusercontent.com/12496720/126901456-f33acc87-ad04-43aa-ac41-ecfc6de5f941.png)
 ![image](https://user-images.githubusercontent.com/12496720/127430209-daf57c40-df67-40de-ace6-c5ebac1632b5.png)
+![image](https://user-images.githubusercontent.com/12496720/135845321-60052255-98be-4d40-a267-edb6d85facc4.png)
+
 
 ## Supported Control
 Textbox\
@@ -15,7 +17,9 @@ Time Picker\
 Radio button\
 Calendar Date Picker\
 Progress bar\
-Hyperlink control
+Hyperlink control\
+Checkbox\
+Toggle Switch
 
 ## How to use
 1.Download pre-compiled dll files and link it.\
