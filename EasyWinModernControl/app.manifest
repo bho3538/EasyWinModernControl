@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assembly
+ xmlns="urn:schemas-microsoft-com:asm.v1"
+ xmlns:asmv3="urn:schemas-microsoft-com:asm.v3"
+ manifestVersion="1.0">
+  <asmv3:file name="WinUIWrapper.dll">
+    <activatableClass
+        name="WinUIWrapper.App"
+        threadingModel="both"
+        xmlns="urn:schemas-microsoft-com:winrt.v1" />
+    <activatableClass
+        name="WinUIWrapper.XamlMetadataProvider"
+        threadingModel="both"
+        xmlns="urn:schemas-microsoft-com:winrt.v1" />
+    <activatableClass
+        name="WinUIWrapper.NumberBox"
+        threadingModel="both"
+        xmlns="urn:schemas-microsoft-com:winrt.v1" />
+  </asmv3:file>
+</assembly>

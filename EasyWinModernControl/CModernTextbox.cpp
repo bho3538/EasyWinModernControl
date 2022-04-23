@@ -31,6 +31,12 @@ CModernTextbox::CModernTextbox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR
 	if (maxTextLength > 0) {
 		this->_textbox.MaxLength(maxTextLength);
 	}
+
+	//fix normal control focus issue (like winform button)
+	this->_textbox.GettingFocus([this](const winrt::Windows::Foundation::IInspectable& sender, const RoutedEventArgs& args)
+		{
+			SendMessageW(this->GetParentHwnd(), WM_SETFOCUS, 0, 0);
+		});
 }
 
 CModernTextbox::~CModernTextbox() {

@@ -128,6 +128,10 @@ HWND CModernControl::GetRawControlHwnd() {
 	return this->_uwpHwnd;
 }
 
+HWND CModernControl::GetParentHwnd() {
+	return this->_parentHwnd;
+}
+
 void CModernControl::AdjustLayout() {
 	RECT windowRect = { 0, };
 	if (this->_parentHwnd && this->_uwpHwnd) {

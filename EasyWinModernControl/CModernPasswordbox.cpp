@@ -24,6 +24,12 @@ CModernPasswordbox::CModernPasswordbox(LPCWSTR controlName, LPCWSTR headerTitle,
 	if (maxLength > 0) {
 		this->_pwdbox.MaxLength(maxLength);
 	}
+
+	//fix normal control focus issue
+	this->_pwdbox.GettingFocus([this](const winrt::Windows::Foundation::IInspectable& sender, const RoutedEventArgs& args)
+		{
+			SendMessageW(this->GetParentHwnd(), WM_SETFOCUS, 0, 0);
+		});
 }
 
 CModernPasswordbox::~CModernPasswordbox() {

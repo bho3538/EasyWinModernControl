@@ -19,6 +19,8 @@ HWND g_PasswordPlaceHwnd = NULL;
 HWND g_ButtonPlaceHwnd = NULL;
 HWND g_ButtonPlaceHwnd2 = NULL;
 
+HWND g_Win32Textbox = NULL;
+
 HWND g_SlidebarPlaceHwnd = NULL;
 HWND g_SlidebarValueLabel = NULL;
 HWND g_ProgressRingPlaceHwnd = NULL;
@@ -65,6 +67,8 @@ BOOL __stdcall _SlidebarChanged(DWORD id, DOUBLE currentValue, PVOID userData) {
 BOOL __stdcall _ButtonClicked(DWORD id, PVOID userData) {
 
 	MessageBoxW((HWND)userData, L"Button Clicked", L"", 0);
+
+	SetFocus(g_LabelHwnd);
 
 	return TRUE;
 }
@@ -186,6 +190,9 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		//create uwp textbox
 		g_TextboxInfo = EasyWinModernCtrl_CreateTextbox(L"testbox_1", L"Enter Text", L"placeholder text", TRUE, TRUE, 0);
 		EasyWinModernCtrl_ShowControl(g_TextboxInfo, g_TextboxPlaceHwnd);
+
+		g_Win32Textbox = CreateWindowW(L"Edit", NULL, WS_CHILD | WS_BORDER | ES_MULTILINE, 600, 100, 200, 30, hwnd, NULL, NULL, NULL);
+		ShowWindow(g_Win32Textbox,SW_SHOW);
 
 		//create uwp button place
 		g_ButtonPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 360, 5, 40, 30, hwnd, NULL, NULL, NULL);
@@ -353,9 +360,9 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 
 	}; break;
 	case WM_COMMAND: {
-		if (g_TextboxInfo) {
-			MessageBox(hwnd, EasyWinModernCtrl_TextboxGetText(g_TextboxInfo), L"EasyWinModernControl", 0);
-		}
+		//if (g_TextboxInfo) {
+		//	MessageBox(hwnd, EasyWinModernCtrl_TextboxGetText(g_TextboxInfo), L"EasyWinModernControl", 0);
+		//}
 
 	}; break; 
 	case WM_SIZE: {
@@ -374,6 +381,7 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_AdjustLayout(g_HyperLinkInfo);
 		EasyWinModernCtrl_AdjustLayout(g_ToggleSwitchInfo);
 		EasyWinModernCtrl_AdjustLayout(g_CheckboxInfo);
+
 	}; break;
 	case WM_CLOSE: {
 		EasyWinModernCtrl_CloseControl(g_TextboxInfo);

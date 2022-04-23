@@ -25,6 +25,7 @@ namespace EasyWinModernControl {
 		void Close();
 		void Hide(BOOL reShow);
 		HWND GetRawControlHwnd();
+		HWND GetParentHwnd();
 
 	protected:
 
