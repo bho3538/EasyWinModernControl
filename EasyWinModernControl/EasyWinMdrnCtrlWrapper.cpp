@@ -149,6 +149,13 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_TextboxSetText(PEASYMODERNT
 		pInfo->pTextbox->SetText(text);
 	}
 }
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_TextboxSetTextWithSize(PEASYMODERNTEXTBOX pTextboxInfo, LPCWSTR text,DWORD size) {
+	PEASYMODERNTEXTBOXINT pInfo = (PEASYMODERNTEXTBOXINT)pTextboxInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_TEXTBOX) {
+		pInfo->pTextbox->SetText(text,size);
+	}
+}
 __declspec(dllexport) void __cdecl EasyWinModernCtrl_TextboxSetReadonlyMode(PEASYMODERNTEXTBOX pTextboxInfo, BOOL enable) {
 	PEASYMODERNTEXTBOXINT pInfo = (PEASYMODERNTEXTBOXINT)pTextboxInfo;
 	if (pInfo && pInfo->unused == _EASYWINNOTY_TEXTBOX) {
@@ -159,6 +166,13 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_TextboxSetEnableControl(PEA
 	PEASYMODERNTEXTBOXINT pInfo = (PEASYMODERNTEXTBOXINT)pTextboxInfo;
 	if (pInfo && pInfo->unused == _EASYWINNOTY_TEXTBOX) {
 		pInfo->pTextbox->SetEnableControl(enable);
+	}
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_TextboxSetSpellCheck(PEASYMODERNTEXTBOX pTextboxInfo, BOOL enable) {
+	PEASYMODERNTEXTBOXINT pInfo = (PEASYMODERNTEXTBOXINT)pTextboxInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_TEXTBOX) {
+		pInfo->pTextbox->SetSpellCheck(enable);
 	}
 }
 

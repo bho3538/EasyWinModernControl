@@ -10,8 +10,10 @@ namespace EasyWinModernControl {
 
 			LPCWSTR GetText();
 			void SetText(LPCWSTR text);
+			void SetText(LPCWSTR text,DWORD size);
 			void SetReadonlyMode(BOOL enable);
 			void SetEnableControl(BOOL enable);
+			void SetSpellCheck(BOOL enable);
 
 		protected:
 			void SetTemplate();

@@ -58,9 +58,17 @@ void CModernTextbox::SetText(LPCWSTR text) {
 	if (!this->ins) {
 		return;
 	}
-	
 	this->_textbox.Text(text);
 }
+
+void CModernTextbox::SetText(LPCWSTR text,DWORD size) {
+	if (!this->ins) {
+		return;
+	}
+	this->_textbox.Text(hstring(text,size));
+}
+
+
 
 
 void CModernTextbox::SetReadonlyMode(BOOL enable) {
@@ -77,6 +85,10 @@ void CModernTextbox::SetEnableControl(BOOL enable) {
 	}
 
 	this->_textbox.IsEnabled(enable);
+}
+
+void CModernTextbox::SetSpellCheck(BOOL enable) {
+	this->_textbox.IsSpellCheckEnabled(enable);
 }
 
 void CModernTextbox::SetTemplate() {

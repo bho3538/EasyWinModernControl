@@ -9,3 +9,4 @@
 #include <winrt/Windows.UI.Xaml.Data.h>
 #include <windows.ui.xaml.hosting.desktopwindowxamlsource.h>
 #include <winrt/Windows.UI.Xaml.Markup.h>
+#include <winrt/Windows.UI.Core.h>

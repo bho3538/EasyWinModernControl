@@ -69,8 +69,10 @@ extern "C" {
 	__declspec(dllexport) PEASYMODERNTEXTBOX __cdecl EasyWinModernCtrl_CreateTextbox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder, BOOL enableMultiLine, BOOL enableUserChangeLine, DWORD maxTextLength);
 	__declspec(dllexport) LPCWSTR __cdecl EasyWinModernCtrl_TextboxGetText(PEASYMODERNTEXTBOX pTextboxInfo);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_TextboxSetText(PEASYMODERNTEXTBOX pTextboxInfo,LPCWSTR text);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_TextboxSetTextWithSize(PEASYMODERNTEXTBOX pTextboxInfo, LPCWSTR text,DWORD size);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_TextboxSetReadonlyMode(PEASYMODERNTEXTBOX pTextboxInfo, BOOL enable);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_TextboxSetEnableControl(PEASYMODERNTEXTBOX pTextboxInfo, BOOL enable);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_TextboxSetSpellCheck(PEASYMODERNTEXTBOX pTextboxInfo, BOOL enable);
 
 	
 	//Passwordbox
