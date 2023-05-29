@@ -30,14 +30,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <SpectreMitigation>false</SpectreMitigation>
@@ -45,14 +45,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <SpectreMitigation>false</SpectreMitigation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <SpectreMitigation>false</SpectreMitigation>
@@ -158,6 +158,7 @@
     <ClCompile Include="CModernControl.cpp" />
     <ClCompile Include="CModernCalendarDatePicker.cpp" />
     <ClCompile Include="CModernHyperlink.cpp" />
+    <ClCompile Include="CModernMediaPlayer.cpp" />
     <ClCompile Include="CModernPasswordbox.cpp" />
     <ClCompile Include="CModernProgressbar.cpp" />
     <ClCompile Include="CModernProgressring.cpp" />
@@ -171,6 +172,8 @@
     </ClCompile>
     <ClCompile Include="CModernTextbox.cpp" />
     <ClCompile Include="CModernTimePicker.cpp" />
+    <ClCompile Include="CRandomAccessStream.cpp" />
+    <ClCompile Include="EasyMediaControlWindow.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="EasyWinMdrnCtrlWrapper.cpp" />
   </ItemGroup>
@@ -183,6 +186,7 @@
     <ClInclude Include="CModernControl.h" />
     <ClInclude Include="CModernCalendarDatePicker.h" />
     <ClInclude Include="CModernHyperlink.h" />
+    <ClInclude Include="CModernMediaPlayer.h" />
     <ClInclude Include="CModernPasswordbox.h" />
     <ClInclude Include="CModernProgressbar.h" />
     <ClInclude Include="CModernProgressring.h" />
@@ -196,6 +200,8 @@
     </ClInclude>
     <ClInclude Include="CModernTextbox.h" />
     <ClInclude Include="CModernTimePicker.h" />
+    <ClInclude Include="CRandomAccessStream.h" />
+    <ClInclude Include="EasyMediaControlWindow.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="EasyWinMdrnCtrlWrapper.h" />
   </ItemGroup>

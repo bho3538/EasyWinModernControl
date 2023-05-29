@@ -66,6 +66,15 @@
     <ClCompile Include="CModernCheckbox.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="CModernMediaPlayer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CRandomAccessStream.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EasyMediaControlWindow.cpp">
+      <Filter>소스 파일\extern</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -115,6 +124,15 @@
     </ClInclude>
     <ClInclude Include="CModernCheckbox.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CModernMediaPlayer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CRandomAccessStream.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EasyMediaControlWindow.h">
+      <Filter>헤더 파일\extern</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

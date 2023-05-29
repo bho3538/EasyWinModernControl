@@ -61,6 +61,10 @@ extern "C" {
 		int unused;
 	} EASYMODERNCHECKBOX, * PEASYMODERNCHECKBOX;
 
+	typedef struct _EasyModernMediaPlayer {
+		int unused;
+	} EASYMODERNMEDIAPLAYER, * PEASYMODERNMEDIAPLAYER;
+
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_InitializeApartment(BOOL useMTA);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_UnInitialize();
 	__declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_IsSystemSupport();
@@ -144,6 +148,10 @@ extern "C" {
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_CheckboxSetEnableControl(PEASYMODERNCHECKBOX pCheckbox, BOOL enable);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_CheckboxSetChangedCallback(PEASYMODERNCHECKBOX pCheckbox, TEasyWinModernCtrl_CheckboxCallback callbackFunc, PVOID userData);
 
+	//MediaPlayer
+	__declspec(dllexport) PEASYMODERNMEDIAPLAYER __cdecl EasyWinModernCtrl_CreateMediaPlayer(LPCWSTR controlName);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_MediaPlayerSetUriSource(PEASYMODERNMEDIAPLAYER pMediaPlayer, LPCWSTR uri);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_MediaPlayerSetStreamSource(PEASYMODERNMEDIAPLAYER pMediaPlayer, PVOID randomStream);
 
 	//Common
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_ShowControl(PVOID pControl, HWND parentHwnd);

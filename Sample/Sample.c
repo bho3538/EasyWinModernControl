@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 #include "../EasyWinModernControl/EasyWinMdrnCtrlWrapper.h"
+#include "..\EasyWinModernControl\EasyMediaControlWindow.h"
 
 #if _WIN64
 #pragma comment(lib,"..\\x64\\Debug\\EasyWinModernControl.lib")
@@ -36,6 +37,7 @@ HWND g_ProgressbarPlaceHwnd3 = NULL;
 HWND g_HyperLinkPlaceHwnd = NULL;
 HWND g_ToggleSwitchPlaceHwnd = NULL;
 HWND g_CheckboxPlaceHwnd = NULL;
+HWND g_MediaPlayerPlaceHwnd = NULL;
 
 PEASYMODERNTEXTBOX g_TextboxInfo = NULL;
 PEASYMODERNBTN g_ButtonInfo = NULL;
@@ -53,6 +55,7 @@ PEASYMODERNPROGRESSBAR g_ProgressbarInfo3 = NULL;
 PEASYMODERNHYPERLINK g_HyperLinkInfo = NULL;
 PEASYMODERNSWITCH g_ToggleSwitchInfo = NULL;
 PEASYMODERNCHECKBOX g_CheckboxInfo = NULL;
+PEASYMODERNMEDIAPLAYER g_PlayerInfo = NULL;
 
 BOOL __stdcall _SlidebarChanged(DWORD id, DOUBLE currentValue, PVOID userData) {
 	CHAR str[10] = { 0, };
@@ -358,12 +361,16 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 
 		EasyWinModernCtrl_ShowControl(g_CheckboxInfo, g_CheckboxPlaceHwnd);
 
+		//create mediaplayer place
+		g_CheckboxPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 1000, 500, 500, 300, hwnd, NULL, NULL, NULL);
+		ShowWindow(g_CheckboxPlaceHwnd, SW_SHOW);
+
+		g_PlayerInfo = EasyWinModernCtrl_CreateMediaPlayer(L"player1");
+		EasyWinModernCtrl_MediaPlayerSetUriSource(g_PlayerInfo, L"");
+
 	}; break;
 	case WM_COMMAND: {
-		//if (g_TextboxInfo) {
-		//	MessageBox(hwnd, EasyWinModernCtrl_TextboxGetText(g_TextboxInfo), L"EasyWinModernControl", 0);
-		//}
-
+		_ShowMediaWindow(g_PlayerInfo);
 	}; break; 
 	case WM_SIZE: {
 		EasyWinModernCtrl_AdjustLayout(g_TextboxInfo);
@@ -381,6 +388,7 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_AdjustLayout(g_HyperLinkInfo);
 		EasyWinModernCtrl_AdjustLayout(g_ToggleSwitchInfo);
 		EasyWinModernCtrl_AdjustLayout(g_CheckboxInfo);
+		EasyWinModernCtrl_AdjustLayout(g_PlayerInfo);
 
 	}; break;
 	case WM_CLOSE: {
@@ -428,6 +436,10 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_CloseControl(g_CheckboxInfo);
 		EasyWinModernCtrl_CleanupControl(g_CheckboxInfo);
 
+		EasyWinModernCtrl_CloseControl(g_PlayerInfo);
+		EasyWinModernCtrl_CleanupControl(g_PlayerInfo);
+
+
 		CloseWindow(g_LabelHwnd);
 		DestroyWindow(g_LabelHwnd);
 
@@ -454,6 +466,11 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 
 		CloseWindow(g_TimeLabel);
 		DestroyWindow(g_TimeLabel);
+		
+		CloseWindow(g_MediaPlayerPlaceHwnd);
+		DestroyWindow(g_MediaPlayerPlaceHwnd);
+
+
 		DestroyWindow(hwnd);
 	}; break;
 	case WM_DESTROY: {

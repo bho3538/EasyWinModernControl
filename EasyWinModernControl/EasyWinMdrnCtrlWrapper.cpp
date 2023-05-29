@@ -14,6 +14,7 @@
 #include "CModernHyperlink.h"
 #include "CModernSwitch.h"
 #include "CModernCheckbox.h"
+#include "CModernMediaPlayer.h"
 
 using namespace EasyWinModernControl;
 
@@ -29,6 +30,7 @@ using namespace EasyWinModernControl;
 #define _EASYWINNOTY_HYPERLINK 10
 #define _EASYWINNOTY_SWITCH 11
 #define _EASYWINNOTY_CHECKBOX 12
+#define _EASYWINNOTY_MEDIAPLAYER 13
 
 typedef struct _EasyModernBtnInt {
 	int unused;
@@ -89,6 +91,11 @@ typedef struct _EasyModernCheckboxInt {
 	int unused;
 	CModernCheckbox* pCheckbox;
 } EASYMODERNCHECKBOXINT, *PEASYMODERNCHECKBOXINT;
+
+typedef struct _EasyModernMediaPlayerInt {
+	int unused;
+	CModernMediaPlayer* pPlayer;
+} EASYMODERNMEDIAPLAYERINT, * PEASYMODERNMEDIAPLAYERINT;
 
 __declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_IsSystemSupport() {
 	return CModernControl::IsSupportSystem();
@@ -500,6 +507,32 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_CheckboxSetChangedCallback(
 	}
 }
 
+__declspec(dllexport) PEASYMODERNMEDIAPLAYER __cdecl EasyWinModernCtrl_CreateMediaPlayer(LPCWSTR controlName) {
+	PEASYMODERNMEDIAPLAYERINT pSwitch = (PEASYMODERNMEDIAPLAYERINT)malloc(sizeof(EASYMODERNMEDIAPLAYERINT));
+	if (pSwitch) {
+		pSwitch->unused = _EASYWINNOTY_MEDIAPLAYER;
+		pSwitch->pPlayer = new CModernMediaPlayer();
+	}
+
+	return (PEASYMODERNMEDIAPLAYER)pSwitch;
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_MediaPlayerSetUriSource(PEASYMODERNMEDIAPLAYER pMediaPlayer, LPCWSTR uri) {
+	PEASYMODERNMEDIAPLAYERINT pInfo = (PEASYMODERNMEDIAPLAYERINT)pMediaPlayer;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_MEDIAPLAYER) {
+		pInfo->pPlayer->SetUriSource(uri);
+	}
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_MediaPlayerSetStreamSource(PEASYMODERNMEDIAPLAYER pMediaPlayer, PVOID pRandomStream) {
+	PEASYMODERNMEDIAPLAYERINT pInfo = (PEASYMODERNMEDIAPLAYERINT)pMediaPlayer;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_MEDIAPLAYER) {
+
+		winrt::Windows::Storage::Streams::IRandomAccessStream* randomStream = (winrt::Windows::Storage::Streams::IRandomAccessStream*)(pRandomStream);
+
+		pInfo->pPlayer->SetStreamSource(*randomStream);
+	}
+}
 
 __declspec(dllexport) void __cdecl EasyWinModernCtrl_ShowControl(PVOID pControl,HWND parentHwnd) {
 	PEASYMODERNBTNINT pControlInfo = (PEASYMODERNBTNINT)pControl;
@@ -586,6 +619,9 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_CleanupControl(PVOID pContr
 		}; break;
 		case _EASYWINNOTY_CHECKBOX: {
 			delete (CModernCheckbox*)(pControlInfo->pBtn);
+		}; break;
+		case _EASYWINNOTY_MEDIAPLAYER: {
+			delete (CModernMediaPlayer*)(pControlInfo->pBtn);
 		}; break;
 	}
 
