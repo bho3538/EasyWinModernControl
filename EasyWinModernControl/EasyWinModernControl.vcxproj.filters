@@ -19,6 +19,12 @@
     <Filter Include="헤더 파일\extern">
       <UniqueIdentifier>{e7b69a06-7709-44b2-8d87-ab9af7b8bce7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\WinUI">
+      <UniqueIdentifier>{f1e76977-4335-4046-a83b-5f06a4d690cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\WinUI">
+      <UniqueIdentifier>{77e8ef72-1f3c-4a17-bef8-6fa09ea8b49f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CModernTextbox.cpp">
@@ -74,6 +80,15 @@
     </ClCompile>
     <ClCompile Include="EasyMediaControlWindow.cpp">
       <Filter>소스 파일\extern</Filter>
+    </ClCompile>
+    <ClCompile Include="CWinUIProgressRing.cpp">
+      <Filter>소스 파일\WinUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CWinUIProgressbar.cpp">
+      <Filter>소스 파일\WinUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CWinUINumberBox.cpp">
+      <Filter>소스 파일\WinUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +148,15 @@
     </ClInclude>
     <ClInclude Include="EasyMediaControlWindow.h">
       <Filter>헤더 파일\extern</Filter>
+    </ClInclude>
+    <ClInclude Include="CWinUIProgressRing.h">
+      <Filter>헤더 파일\WinUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CWinUIProgressbar.h">
+      <Filter>헤더 파일\WinUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CWinUINumberBox.h">
+      <Filter>헤더 파일\WinUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

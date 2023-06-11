@@ -9,7 +9,7 @@ namespace EasyWinModernControl {
 	class CModernControl
 	{
 	public:
-		static HRESULT Initialize(BOOL useMTA);
+		static HRESULT Initialize(BOOL useMTA, BOOL useWinUI);
 		static void UnInitialize();
 		static BOOL IsSupportSystem();
 
@@ -31,6 +31,7 @@ namespace EasyWinModernControl {
 
 		virtual void SetTemplate();
 		virtual void OnAdjustLayout();
+
 
 		DesktopWindowXamlSource xs;
 

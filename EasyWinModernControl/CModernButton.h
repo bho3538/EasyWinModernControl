@@ -26,16 +26,12 @@ namespace EasyWinModernControl {
 
 	private:
 		Windows::UI::Xaml::Controls::Button _btn;
-		Windows::UI::Xaml::Controls::RadioButton _radio;
-
 
 		DWORD _id;
 		_TEasyWinModernCtrl_BtnCallback _callbackFunc = NULL;
 		PVOID _userData = NULL;
 
 		BOOL _useAccentColor = FALSE;
-
-		//static void _InternalClicked(const winrt::Windows::Foundation::IInspectable& sender, const RoutedEventArgs& args);
 
 		static LPCWSTR xml;
 	};

@@ -65,7 +65,19 @@ extern "C" {
 		int unused;
 	} EASYMODERNMEDIAPLAYER, * PEASYMODERNMEDIAPLAYER;
 
-	__declspec(dllexport) void __cdecl EasyWinModernCtrl_InitializeApartment(BOOL useMTA);
+	typedef struct _EasyWinUIProgressring {
+		int unused;
+	} EASYWINUIPROGRESSRING, * PEASYWINUIPROGRESSRING;
+
+	typedef struct _EasyWinUIProgressbar {
+		int unused;
+	} EASYWINUIPROGRESSBAR, * PEASYWINUIPROGRESSBAR;
+
+	typedef struct _EasyWinUINumberBox {
+		int unused;
+	} EASYWINUINUMBERBOX, * PEASYWINUINUMBERBOX;
+
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_InitializeApartment(BOOL useMTA, BOOL useWinUI);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_UnInitialize();
 	__declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_IsSystemSupport();
 
@@ -153,6 +165,32 @@ extern "C" {
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_MediaPlayerSetUriSource(PEASYMODERNMEDIAPLAYER pMediaPlayer, LPCWSTR uri);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_MediaPlayerSetStreamSource(PEASYMODERNMEDIAPLAYER pMediaPlayer, PVOID randomStream);
 
+	//Winui progressRing
+	__declspec(dllexport) PEASYWINUIPROGRESSRING __cdecl EasyWinModernCtrl_CreateWinUIProgressring(LPCWSTR controlName);
+
+	//Winui Progressbar
+	__declspec(dllexport) PEASYWINUIPROGRESSBAR __cdecl EasyWinModernCtrl_CreateWinUIProgressbar(LPCWSTR controlName, DOUBLE minVal, DOUBLE maxVal);
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_WinUIProgressbarSetValue(PEASYWINUIPROGRESSBAR pProgressInfo, BOOL isIndeterminate, BOOL isPause, DOUBLE value);
+
+	//Winui NumberBox
+	__declspec(dllexport) PEASYWINUINUMBERBOX __cdecl EasyWinModernCtrl_CreateWinUINumberBox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder);
+
+	// 0 : Hidden
+	// 1 : Compact
+	// 2 : inline
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_WinUINumberBoxSetButtonType(PEASYWINUINUMBERBOX pNumberBoxInfo, DWORD mode);
+
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_WinUINumberBoxSetValue(PEASYWINUINUMBERBOX pNumberBoxInfo, DOUBLE value);
+
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_WinUINumberBoxSetMinValue(PEASYWINUINUMBERBOX pNumberBoxInfo, DOUBLE value);
+
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_WinUINumberBoxSetMaxValue(PEASYWINUINUMBERBOX pNumberBoxInfo, DOUBLE value);
+
+	__declspec(dllexport) void __cdecl EasyWinModernCtrl_WinUINumberBoxSetChangeStep(PEASYWINUINUMBERBOX pNumberBoxInfo, DOUBLE step);
+
+	__declspec(dllexport) DOUBLE __cdecl EasyWinModernCtrl_WinUINumberBoxGetValue(PEASYWINUINUMBERBOX pNumberBoxInfo);
+
+
 	//Common
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_ShowControl(PVOID pControl, HWND parentHwnd);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_AdjustLayout(PVOID pControl);
@@ -166,6 +204,7 @@ extern "C" {
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_HideControl(PVOID pControl,BOOL reShow);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_CloseControl(PVOID pControl);
 	__declspec(dllexport) void __cdecl EasyWinModernCtrl_CleanupControl(PVOID pControl);
+
 
 #if __cplusplus
 }

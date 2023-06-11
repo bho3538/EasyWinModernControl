@@ -38,6 +38,7 @@ HWND g_HyperLinkPlaceHwnd = NULL;
 HWND g_ToggleSwitchPlaceHwnd = NULL;
 HWND g_CheckboxPlaceHwnd = NULL;
 HWND g_MediaPlayerPlaceHwnd = NULL;
+HWND g_NumberBoxPlaceHwnd = NULL;
 
 PEASYMODERNTEXTBOX g_TextboxInfo = NULL;
 PEASYMODERNBTN g_ButtonInfo = NULL;
@@ -49,13 +50,21 @@ PEASYMODERNPWDBOX g_PasswordBoxInfo = NULL;
 PEASYMODERNRADIOBTN g_RadioBtnInfo = NULL;
 PEASYMODERNRADIOBTN g_RadioBtnInfo2 = NULL;
 PEASYMODERNCALENDARDATEPICKER g_CalendarDatePickerInfo = NULL;
-PEASYMODERNPROGRESSBAR g_ProgressbarInfo = NULL;
-PEASYMODERNPROGRESSBAR g_ProgressbarInfo2 = NULL;
-PEASYMODERNPROGRESSBAR g_ProgressbarInfo3 = NULL;
+//PEASYMODERNPROGRESSBAR g_ProgressbarInfo = NULL;
+//PEASYMODERNPROGRESSBAR g_ProgressbarInfo2 = NULL;
+//PEASYMODERNPROGRESSBAR g_ProgressbarInfo3 = NULL;
 PEASYMODERNHYPERLINK g_HyperLinkInfo = NULL;
 PEASYMODERNSWITCH g_ToggleSwitchInfo = NULL;
 PEASYMODERNCHECKBOX g_CheckboxInfo = NULL;
 PEASYMODERNMEDIAPLAYER g_PlayerInfo = NULL;
+
+PEASYWINUIPROGRESSRING g_WinUIProgressringInfo = NULL;
+
+PEASYWINUIPROGRESSBAR g_ProgressbarInfo = NULL;
+PEASYWINUIPROGRESSBAR g_ProgressbarInfo2 = NULL;
+PEASYWINUIPROGRESSBAR g_ProgressbarInfo3 = NULL;
+
+PEASYWINUINUMBERBOX g_NumberBoxInfo = NULL;
 
 BOOL __stdcall _SlidebarChanged(DWORD id, DOUBLE currentValue, PVOID userData) {
 	CHAR str[10] = { 0, };
@@ -144,7 +153,8 @@ int main()
 		return -1;
 	}
 
-	EasyWinModernCtrl_InitializeApartment(0);
+	BOOL useWinUI = TRUE;
+	EasyWinModernCtrl_InitializeApartment(0, useWinUI);
 
 	WNDCLASSEX wClass = { 0 };
 	wClass.cbSize = sizeof(wClass);
@@ -157,7 +167,7 @@ int main()
 
 	HWND MainWindow = CreateWindowExW(0,
 		L"MainWindow",
-		L"EasyWinModernControl",
+		L"EasyWinModernControl With WinUI",
 		WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS |
 		WS_CLIPCHILDREN, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 		0, 0, NULL, NULL);
@@ -198,7 +208,7 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		ShowWindow(g_Win32Textbox,SW_SHOW);
 
 		//create uwp button place
-		g_ButtonPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 360, 5, 40, 30, hwnd, NULL, NULL, NULL);
+		g_ButtonPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 360, 5, 55, 35, hwnd, NULL, NULL, NULL);
 		ShowWindow(g_ButtonPlaceHwnd, SW_SHOW);
 
 		//create uwp button
@@ -208,7 +218,7 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_ShowControl(g_ButtonInfo, g_ButtonPlaceHwnd);
 
 		//create uwp button place2
-		g_ButtonPlaceHwnd2 = CreateWindowW(L"static", L"", WS_CHILD, 450, 5, 40, 30, hwnd, NULL, NULL, NULL);
+		g_ButtonPlaceHwnd2 = CreateWindowW(L"static", L"", WS_CHILD, 450, 5, 100, 35, hwnd, NULL, NULL, NULL);
 		ShowWindow(g_ButtonPlaceHwnd2, SW_SHOW);
 
 		//create uwp button2 (no accent color)
@@ -233,8 +243,10 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		ShowWindow(g_ProgressRingPlaceHwnd, SW_SHOW);
 
 		//create uwp loading progress ring
-		g_ProgressringInfo = EasyWinModernCtrl_CreateProgressring(L"loadingRing");
-		EasyWinModernCtrl_ShowControl(g_ProgressringInfo, g_ProgressRingPlaceHwnd);
+		//g_ProgressringInfo = EasyWinModernCtrl_CreateProgressring(L"loadingRing");
+		//EasyWinModernCtrl_ShowControl(g_ProgressringInfo, g_ProgressRingPlaceHwnd);
+		g_WinUIProgressringInfo = EasyWinModernCtrl_CreateWinUIProgressring(L"loadingRing");
+		EasyWinModernCtrl_ShowControl(g_WinUIProgressringInfo, g_ProgressRingPlaceHwnd);
 
 		//create uwp time picker place
 		g_TimePickerPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 350, 150, 250, 60, hwnd, NULL, NULL, NULL);
@@ -289,7 +301,7 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_ShowControl(g_RadioBtnInfo2, g_RadioBtnPlaceHwnd2);
 
 		//create uwp Calendar DatePicker place
-		g_CalendarDatePickerPlaceHwnd = CreateWindow(L"static", L"", WS_CHILD, 600, 350, 200, 55, hwnd, NULL, NULL, NULL);
+		g_CalendarDatePickerPlaceHwnd = CreateWindow(L"static", L"", WS_CHILD, 600, 350, 200, 60, hwnd, NULL, NULL, NULL);
 		ShowWindow(g_CalendarDatePickerPlaceHwnd, SW_SHOW);
 		//create uwp Calendar DatePicker
 		g_CalendarDatePickerInfo = EasyWinModernCtrl_CreateCalendarDatePicker(L"sel_option2",L"Select Date");
@@ -310,27 +322,27 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		ShowWindow(g_ProgressbarPlaceHwnd, SW_SHOW);
 
 		//create uwp progress bar
-		g_ProgressbarInfo = EasyWinModernCtrl_CreateProgressbar(L"progress_1", 0, 10);
+		g_ProgressbarInfo = EasyWinModernCtrl_CreateWinUIProgressbar(L"progress_1", 0, 10);
 		EasyWinModernCtrl_ShowControl(g_ProgressbarInfo, g_ProgressbarPlaceHwnd);
-		EasyWinModernCtrl_ProgressbarSetValue(g_ProgressbarInfo, FALSE, FALSE , 3);
+		EasyWinModernCtrl_WinUIProgressbarSetValue(g_ProgressbarInfo, FALSE, FALSE , 3);
 
 		//create uwp progress bar place2
 		g_ProgressbarPlaceHwnd2 = CreateWindowW(L"static", L"", WS_CHILD, 10, 470, 200, 5, hwnd, NULL, NULL, NULL);
 		ShowWindow(g_ProgressbarPlaceHwnd2, SW_SHOW);
 
 		//create uwp progress bar2
-		g_ProgressbarInfo2 = EasyWinModernCtrl_CreateProgressbar(L"progress_2", 0, 10);
+		g_ProgressbarInfo2 = EasyWinModernCtrl_CreateWinUIProgressbar(L"progress_2", 0, 10);
 		EasyWinModernCtrl_ShowControl(g_ProgressbarInfo2, g_ProgressbarPlaceHwnd2);
-		EasyWinModernCtrl_ProgressbarSetValue(g_ProgressbarInfo2, FALSE, TRUE , 3);
+		EasyWinModernCtrl_WinUIProgressbarSetValue(g_ProgressbarInfo2, FALSE, TRUE , 3);
 
 		//create uwp progress bar place2
 		g_ProgressbarPlaceHwnd3 = CreateWindowW(L"static", L"", WS_CHILD, 10, 490, 200, 5, hwnd, NULL, NULL, NULL);
 		ShowWindow(g_ProgressbarPlaceHwnd3, SW_SHOW);
 
 		//create uwp progress bar2
-		g_ProgressbarInfo3 = EasyWinModernCtrl_CreateProgressbar(L"progress_3", 0, 10);
+		g_ProgressbarInfo3 = EasyWinModernCtrl_CreateWinUIProgressbar(L"progress_3", 0, 10);
 		EasyWinModernCtrl_ShowControl(g_ProgressbarInfo3, g_ProgressbarPlaceHwnd3);
-		EasyWinModernCtrl_ProgressbarSetValue(g_ProgressbarInfo3, TRUE, FALSE, 0);
+		EasyWinModernCtrl_WinUIProgressbarSetValue(g_ProgressbarInfo3, TRUE, FALSE, 0);
 
 		//create hyperlink place
 		g_HyperLinkPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 500, 450, 250, 35, hwnd, NULL, NULL, NULL);
@@ -341,7 +353,7 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_ShowControl(g_HyperLinkInfo, g_HyperLinkPlaceHwnd);
 
 		//create toggle switch place
-		g_ToggleSwitchPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 800, 450, 150, 50, hwnd, NULL, NULL, NULL);
+		g_ToggleSwitchPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 800, 450, 150, 60, hwnd, NULL, NULL, NULL);
 		ShowWindow(g_ToggleSwitchPlaceHwnd, SW_SHOW);
 
 		//create uwp toggle switch
@@ -361,17 +373,25 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 
 		EasyWinModernCtrl_ShowControl(g_CheckboxInfo, g_CheckboxPlaceHwnd);
 
-		//create mediaplayer place
-		g_CheckboxPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 1000, 500, 500, 300, hwnd, NULL, NULL, NULL);
-		ShowWindow(g_CheckboxPlaceHwnd, SW_SHOW);
+		g_NumberBoxPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 1000, 450, 150, 60, hwnd, NULL, NULL, NULL);
+		ShowWindow(g_NumberBoxPlaceHwnd, SW_SHOW);
 
-		g_PlayerInfo = EasyWinModernCtrl_CreateMediaPlayer(L"player1");
-		EasyWinModernCtrl_MediaPlayerSetUriSource(g_PlayerInfo, L"");
+		g_NumberBoxInfo = EasyWinModernCtrl_CreateWinUINumberBox(L"num1", L"NumberBox", L"Enter Number");
+		EasyWinModernCtrl_WinUINumberBoxSetButtonType(g_NumberBoxInfo,1);
+		EasyWinModernCtrl_ShowControl(g_NumberBoxInfo, g_NumberBoxPlaceHwnd);
+
+
+		//create mediaplayer place
+		//g_CheckboxPlaceHwnd = CreateWindowW(L"static", L"", WS_CHILD, 1000, 500, 500, 300, hwnd, NULL, NULL, NULL);
+		//ShowWindow(g_CheckboxPlaceHwnd, SW_SHOW);
+
+		//g_PlayerInfo = EasyWinModernCtrl_CreateMediaPlayer(L"player1");
+		//EasyWinModernCtrl_MediaPlayerSetUriSource(g_PlayerInfo, L"");
 
 	}; break;
-	case WM_COMMAND: {
-		_ShowMediaWindow(g_PlayerInfo);
-	}; break; 
+	//case WM_COMMAND: {
+	//	_ShowMediaWindow(g_PlayerInfo);
+	//}; break; 
 	case WM_SIZE: {
 		EasyWinModernCtrl_AdjustLayout(g_TextboxInfo);
 		EasyWinModernCtrl_AdjustLayout(g_ButtonInfo);
@@ -389,7 +409,8 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_AdjustLayout(g_ToggleSwitchInfo);
 		EasyWinModernCtrl_AdjustLayout(g_CheckboxInfo);
 		EasyWinModernCtrl_AdjustLayout(g_PlayerInfo);
-
+		EasyWinModernCtrl_AdjustLayout(g_WinUIProgressringInfo);
+		EasyWinModernCtrl_AdjustLayout(g_NumberBoxInfo);
 	}; break;
 	case WM_CLOSE: {
 		EasyWinModernCtrl_CloseControl(g_TextboxInfo);
@@ -439,6 +460,11 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		EasyWinModernCtrl_CloseControl(g_PlayerInfo);
 		EasyWinModernCtrl_CleanupControl(g_PlayerInfo);
 
+		EasyWinModernCtrl_CloseControl(g_WinUIProgressringInfo);
+		EasyWinModernCtrl_CleanupControl(g_WinUIProgressringInfo);
+
+		EasyWinModernCtrl_CloseControl(g_NumberBoxInfo);
+		EasyWinModernCtrl_CleanupControl(g_NumberBoxInfo);
 
 		CloseWindow(g_LabelHwnd);
 		DestroyWindow(g_LabelHwnd);
@@ -470,6 +496,8 @@ LRESULT __stdcall _MainWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lP
 		CloseWindow(g_MediaPlayerPlaceHwnd);
 		DestroyWindow(g_MediaPlayerPlaceHwnd);
 
+		CloseWindow(g_NumberBoxPlaceHwnd);
+		DestroyWindow(g_NumberBoxPlaceHwnd);
 
 		DestroyWindow(hwnd);
 	}; break;

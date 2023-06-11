@@ -1,15 +1,38 @@
 #include "stdafx.h"
 #include "CModernControl.h"
 
+
 using namespace EasyWinModernControl;
 
 typedef NTSTATUS(__stdcall* TRtlGetVersion)(OSVERSIONINFOEXW* ovf);
 TRtlGetVersion _RtlGetVersion = NULL;
 
 WindowsXamlManager wm = NULL;
+Application app = NULL;
 
+class App : public ApplicationT<App, IXamlMetadataProvider>
+{
+public:
 
-HRESULT CModernControl::Initialize(BOOL useMTA) {
+	IXamlType GetXamlType(winrt::Windows::UI::Xaml::Interop::TypeName const& type)
+	{
+		return provider.GetXamlType(type);
+	}
+	IXamlType GetXamlType(hstring const& fullname)
+	{
+		return provider.GetXamlType(fullname);
+	}
+	com_array<XmlnsDefinition> GetXmlnsDefinitions()
+	{
+		return provider.GetXmlnsDefinitions();
+	}
+
+private:
+
+	winrt::Microsoft::UI::Xaml::XamlTypeInfo::XamlControlsXamlMetaDataProvider provider;
+};
+
+HRESULT CModernControl::Initialize(BOOL useMTA, BOOL useWinUI) {
 	if (useMTA) {
 		winrt::init_apartment(apartment_type::multi_threaded);
 	}
@@ -17,8 +40,16 @@ HRESULT CModernControl::Initialize(BOOL useMTA) {
 		winrt::init_apartment(apartment_type::single_threaded);
 	}
 
+	if (useWinUI) {
+		app = winrt::make<App>();
+	}
+
 	wm = WindowsXamlManager::InitializeForCurrentThread();
 
+	if (useWinUI) {
+		winrt::Microsoft::UI::Xaml::Controls::XamlControlsResources res;
+		Application::Current().Resources().MergedDictionaries().Append(res);
+	}
 
 	return 0;
 }
@@ -26,6 +57,10 @@ HRESULT CModernControl::Initialize(BOOL useMTA) {
 void CModernControl::UnInitialize() {
 	if (wm) {
 		wm.Close();
+	}
+	
+	if (app) {
+		app.Exit();
 	}
 }
 
@@ -55,7 +90,6 @@ CModernControl::CModernControl() {
 }
 
 CModernControl::~CModernControl() {
-	xs.Close();
 }
 
 
@@ -100,6 +134,7 @@ HRESULT CModernControl::Show(HWND parentHwnd) {
 	//show uwp window at win32 window.
 	GetWindowRect(parentHwnd, &rect);
 	SetWindowPos(_uwpHwnd, 0, 0, 0, rect.right - rect.left, rect.bottom - rect.top, SWP_SHOWWINDOW);
+
 	ShowWindow(_uwpHwnd, SW_SHOW);
 
 escapeArea:

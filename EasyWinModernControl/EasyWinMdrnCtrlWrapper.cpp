@@ -15,6 +15,9 @@
 #include "CModernSwitch.h"
 #include "CModernCheckbox.h"
 #include "CModernMediaPlayer.h"
+#include "CWinUIProgressRing.h"
+#include "CWinUIProgressbar.h"
+#include "CWinUINumberBox.h"
 
 using namespace EasyWinModernControl;
 
@@ -31,6 +34,9 @@ using namespace EasyWinModernControl;
 #define _EASYWINNOTY_SWITCH 11
 #define _EASYWINNOTY_CHECKBOX 12
 #define _EASYWINNOTY_MEDIAPLAYER 13
+#define _EASYWINNOTY_WINUIPROGRESSRING 14
+#define _EASYWINNOTY_WINUIPROGRESSBAR 15
+#define _EASYWINNOTY_WINUINUMBERBOX 16
 
 typedef struct _EasyModernBtnInt {
 	int unused;
@@ -97,12 +103,30 @@ typedef struct _EasyModernMediaPlayerInt {
 	CModernMediaPlayer* pPlayer;
 } EASYMODERNMEDIAPLAYERINT, * PEASYMODERNMEDIAPLAYERINT;
 
+typedef struct _EasyWinUIProgressRingInt {
+	int unused;
+	CWinUIProgressRing* pRing;
+} EASYWINUIPROGRESSRINGINT, * PEASYWINUIPROGRESSRINGINT;
+
+typedef struct _EasyWinUIProgressbarInt {
+	int unused;
+	CWinUIProgressbar* pProgressbar;
+} EASYWINUIPROGRESSBARINT, * PEASYWINUIPROGRESSBARINT;
+
+typedef struct _EasyWinUINumberBoxInt {
+	int unused;
+	CWinUINumberBox* pNumBox;
+} EASYWINUINUMBERBOXINT, * PEASYWINUINUMBERBOXINT;
+
+BOOL g_UseWinUI = FALSE;
+
 __declspec(dllexport) BOOL __cdecl EasyWinModernCtrl_IsSystemSupport() {
 	return CModernControl::IsSupportSystem();
 }
 
-__declspec(dllexport) void __cdecl EasyWinModernCtrl_InitializeApartment(BOOL useMTA) {
-	CModernControl::Initialize(useMTA);
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_InitializeApartment(BOOL useMTA, BOOL useWinUI) {
+	CModernControl::Initialize(useMTA, useWinUI);
+	g_UseWinUI = useWinUI;
 }
 
 __declspec(dllexport) void __cdecl EasyWinModernCtrl_UnInitialize() {
@@ -534,6 +558,95 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_MediaPlayerSetStreamSource(
 	}
 }
 
+__declspec(dllexport) PEASYWINUIPROGRESSRING __cdecl EasyWinModernCtrl_CreateWinUIProgressring(LPCWSTR controlName) {
+	if (!g_UseWinUI) {
+		return NULL;
+	}
+
+	PEASYWINUIPROGRESSRINGINT pRing = (PEASYWINUIPROGRESSRINGINT)malloc(sizeof(EASYWINUIPROGRESSRINGINT));
+	if (pRing) {
+		pRing->unused = _EASYWINNOTY_WINUIPROGRESSRING;
+		pRing->pRing = new CWinUIProgressRing(controlName);
+	}
+	return (PEASYWINUIPROGRESSRING)pRing;
+}
+
+__declspec(dllexport) PEASYWINUIPROGRESSBAR __cdecl EasyWinModernCtrl_CreateWinUIProgressbar(LPCWSTR controlName, DOUBLE minVal, DOUBLE maxVal) {
+	if (!g_UseWinUI) {
+		return NULL;
+	}
+
+	PEASYWINUIPROGRESSBARINT pBar = (PEASYWINUIPROGRESSBARINT)malloc(sizeof(EASYWINUIPROGRESSBARINT));
+	if (pBar) {
+		pBar->unused = _EASYWINNOTY_WINUIPROGRESSBAR;
+		pBar->pProgressbar = new CWinUIProgressbar(controlName, minVal, maxVal);
+	}
+	return (PEASYWINUIPROGRESSBAR)pBar;
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_WinUIProgressbarSetValue(PEASYWINUIPROGRESSBAR pProgressInfo, BOOL isIndeterminate, BOOL isPause, DOUBLE value) {
+	PEASYWINUIPROGRESSBARINT pInfo = (PEASYWINUIPROGRESSBARINT)pProgressInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_WINUIPROGRESSBAR) {
+		pInfo->pProgressbar->SetValue(isIndeterminate, isPause, value);
+	}
+}
+
+__declspec(dllexport) PEASYWINUINUMBERBOX __cdecl EasyWinModernCtrl_CreateWinUINumberBox(LPCWSTR controlName, LPCWSTR headerTitle, LPCWSTR textPlaceholder) {
+	if (!g_UseWinUI) {
+		return NULL;
+	}
+
+	PEASYWINUINUMBERBOXINT pNum = (PEASYWINUINUMBERBOXINT)malloc(sizeof(EASYWINUINUMBERBOXINT));
+	if (pNum) {
+		pNum->unused = _EASYWINNOTY_WINUINUMBERBOX;
+		pNum->pNumBox = new CWinUINumberBox(controlName, headerTitle, textPlaceholder);
+	}
+	return (PEASYWINUINUMBERBOX)pNum;
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_WinUINumberBoxSetButtonType(PEASYWINUINUMBERBOX pNumberBoxInfo, DWORD mode) {
+	PEASYWINUINUMBERBOXINT pInfo = (PEASYWINUINUMBERBOXINT)pNumberBoxInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_WINUINUMBERBOX) {
+		pInfo->pNumBox->SetButtonType(mode);
+	}
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_WinUINumberBoxSetValue(PEASYWINUINUMBERBOX pNumberBoxInfo, DOUBLE value) {
+	PEASYWINUINUMBERBOXINT pInfo = (PEASYWINUINUMBERBOXINT)pNumberBoxInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_WINUINUMBERBOX) {
+		pInfo->pNumBox->SetValue(value);
+	}
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_WinUINumberBoxSetMinValue(PEASYWINUINUMBERBOX pNumberBoxInfo, DOUBLE value) {
+	PEASYWINUINUMBERBOXINT pInfo = (PEASYWINUINUMBERBOXINT)pNumberBoxInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_WINUINUMBERBOX) {
+		pInfo->pNumBox->SetMinValue(value);
+	}
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_WinUINumberBoxSetMaxValue(PEASYWINUINUMBERBOX pNumberBoxInfo, DOUBLE value) {
+	PEASYWINUINUMBERBOXINT pInfo = (PEASYWINUINUMBERBOXINT)pNumberBoxInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_WINUINUMBERBOX) {
+		pInfo->pNumBox->SetMaxValue(value);
+	}
+}
+
+__declspec(dllexport) void __cdecl EasyWinModernCtrl_WinUINumberBoxSetChangeStep(PEASYWINUINUMBERBOX pNumberBoxInfo, DOUBLE step) {
+	PEASYWINUINUMBERBOXINT pInfo = (PEASYWINUINUMBERBOXINT)pNumberBoxInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_WINUINUMBERBOX) {
+		pInfo->pNumBox->SetChangeStep(step);
+	}
+}
+
+__declspec(dllexport) DOUBLE __cdecl EasyWinModernCtrl_WinUINumberBoxGetValue(PEASYWINUINUMBERBOX pNumberBoxInfo) {
+	PEASYWINUINUMBERBOXINT pInfo = (PEASYWINUINUMBERBOXINT)pNumberBoxInfo;
+	if (pInfo && pInfo->unused == _EASYWINNOTY_WINUINUMBERBOX) {
+		return pInfo->pNumBox->GetValue();
+	}
+	return 0;
+}
+
 __declspec(dllexport) void __cdecl EasyWinModernCtrl_ShowControl(PVOID pControl,HWND parentHwnd) {
 	PEASYMODERNBTNINT pControlInfo = (PEASYMODERNBTNINT)pControl;
 	if (pControlInfo) {
@@ -622,6 +735,15 @@ __declspec(dllexport) void __cdecl EasyWinModernCtrl_CleanupControl(PVOID pContr
 		}; break;
 		case _EASYWINNOTY_MEDIAPLAYER: {
 			delete (CModernMediaPlayer*)(pControlInfo->pBtn);
+		}; break;
+		case _EASYWINNOTY_WINUIPROGRESSRING: {
+			delete (CWinUIProgressRing*)(pControlInfo->pBtn);
+		}; break;
+		case _EASYWINNOTY_WINUIPROGRESSBAR: {
+			delete (CWinUIProgressbar*)(pControlInfo->pBtn);
+		}; break;
+		case _EASYWINNOTY_WINUINUMBERBOX: {
+			delete (CWinUINumberBox*)(pControlInfo->pBtn);
 		}; break;
 	}
 

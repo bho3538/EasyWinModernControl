@@ -1,6 +1,6 @@
 # EasyWinModernControl
 
-Easy UWP Modern Control in plain win32 program. (C/C++)
+Easy UWP Modern Control and WinUI2 Control in plain win32 program. (C/C++)
 
 ![image](https://user-images.githubusercontent.com/12496720/126588737-32817b55-bb49-46a8-956c-12fff14413e5.png)
 ![image](https://user-images.githubusercontent.com/12496720/126901456-f33acc87-ad04-43aa-ac41-ecfc6de5f941.png)
@@ -17,9 +17,13 @@ Time Picker\
 Radio button\
 Calendar Date Picker\
 Progress bar\
+Progress Ring\
 Hyperlink control\
 Checkbox\
-Toggle Switch
+Toggle Switch\
+Progress bar(WinUI)\
+Progress Ring(WinUI)\
+NumberBox(WinUI)\
 
 ## How to use
 1.Download pre-compiled dll files and link it.\
@@ -35,6 +39,15 @@ Toggle Switch
   </compatibility>
 </assembly>
 ```
+
+## Use WinUI2
+![image](https://github.com/bho3538/EasyWinModernControl/assets/12496720/bb10819a-1220-40f9-b598-c0f6ad938f57)
+![image](https://github.com/bho3538/EasyWinModernControl/assets/12496720/9cfdd325-0bcc-4609-811d-67decdaa7c92)
+
+1. Put 'Microsoft.UI.Xaml.dll' (WinUI2 2.8.2) at program path. (check build architecture)\
+2. Put 'resources.pri' at program path. (ignore architecture)\
+3. In 'EasyWinModernCtrl_InitializeApartment(BOOL useMTA, BOOL useWinUI)' function, set TRUE at second parameter ('useWinUI')\
+
 [API Document](/docs.md)
 
 ## Supported OS

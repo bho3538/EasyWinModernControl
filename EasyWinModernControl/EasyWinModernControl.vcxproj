@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.UI.Xaml.2.8.4\build\native\Microsoft.UI.Xaml.props" Condition="Exists('..\packages\Microsoft.UI.Xaml.2.8.4\build\native\Microsoft.UI.Xaml.props')" />
   <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.210709.3\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.210709.3\build\native\Microsoft.Windows.CppWinRT.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -173,6 +174,9 @@
     <ClCompile Include="CModernTextbox.cpp" />
     <ClCompile Include="CModernTimePicker.cpp" />
     <ClCompile Include="CRandomAccessStream.cpp" />
+    <ClCompile Include="CWinUINumberBox.cpp" />
+    <ClCompile Include="CWinUIProgressbar.cpp" />
+    <ClCompile Include="CWinUIProgressRing.cpp" />
     <ClCompile Include="EasyMediaControlWindow.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="EasyWinMdrnCtrlWrapper.cpp" />
@@ -201,6 +205,9 @@
     <ClInclude Include="CModernTextbox.h" />
     <ClInclude Include="CModernTimePicker.h" />
     <ClInclude Include="CRandomAccessStream.h" />
+    <ClInclude Include="CWinUINumberBox.h" />
+    <ClInclude Include="CWinUIProgressbar.h" />
+    <ClInclude Include="CWinUIProgressRing.h" />
     <ClInclude Include="EasyMediaControlWindow.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="EasyWinMdrnCtrlWrapper.h" />
@@ -208,6 +215,8 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.210709.3\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.210709.3\build\native\Microsoft.Windows.CppWinRT.targets')" />
+    <Import Project="..\packages\Microsoft.Web.WebView2.1.0.1264.42\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.1264.42\build\native\Microsoft.Web.WebView2.targets')" />
+    <Import Project="..\packages\Microsoft.UI.Xaml.2.8.4\build\native\Microsoft.UI.Xaml.targets" Condition="Exists('..\packages\Microsoft.UI.Xaml.2.8.4\build\native\Microsoft.UI.Xaml.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -215,5 +224,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.210709.3\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.210709.3\build\native\Microsoft.Windows.CppWinRT.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.210709.3\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.210709.3\build\native\Microsoft.Windows.CppWinRT.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Web.WebView2.1.0.1264.42\build\native\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.WebView2.1.0.1264.42\build\native\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.UI.Xaml.2.8.4\build\native\Microsoft.UI.Xaml.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.UI.Xaml.2.8.4\build\native\Microsoft.UI.Xaml.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.UI.Xaml.2.8.4\build\native\Microsoft.UI.Xaml.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.UI.Xaml.2.8.4\build\native\Microsoft.UI.Xaml.targets'))" />
   </Target>
 </Project>
